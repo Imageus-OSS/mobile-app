@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import Button from "./Button";
-import TextInput from "./TextInput";
+import Input from "./Input";
 
 const Card = ({ title }) => {
   return (
@@ -11,8 +11,8 @@ const Card = ({ title }) => {
     >
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
-        <TextInput />
-        <Button title="Button" />
+        <Input />
+        <Button title="Button Test" />
       </View>
     </KeyboardAvoidingView>
 
