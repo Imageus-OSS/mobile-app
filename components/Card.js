@@ -3,19 +3,19 @@ import { StyleSheet, View, Text, KeyboardAvoidingView, TouchableOpacity } from '
 import Button from "./Button";
 import Input from "./Input";
 
-const Card = ({ title }) => {
+const Card = ({ title, children }) => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={"position"}
       style={styles.container}
     >
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
-        <Input />
-        <Button title="Button Test" />
+        <View>
+          {children}
+        </View>
       </View>
     </KeyboardAvoidingView>
-
   )
 }
 

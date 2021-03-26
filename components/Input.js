@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, TextInput} from "react-native";
 
-function Input({ placeholder }) {
+function Input({ placeholder, secureTextEntry }) {
   return (
-    <TextInput style={styles.textInput} placeholder="Test" />
+    <TextInput autoCapitalize="none" secureTextEntry={secureTextEntry} style={styles.textInput} placeholder={placeholder} />
   )
 }
 
