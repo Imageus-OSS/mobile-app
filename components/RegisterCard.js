@@ -17,8 +17,8 @@ const RegisterCard = () => {
                 <Input placeholder="Username" />
                 <Input placeholder="Email" />
                 <Input placeholder="Password" />
-                <Button title="Register" />
-                <Text style={styles.login} > Go back to login </Text>
+                <Button title="Register" onPress={() => alert('Register')} />
+                <Text style={styles.login} onPress={() => alert('Back to login')}> Go back to login </Text>
             </Card>
         </View>
     )
