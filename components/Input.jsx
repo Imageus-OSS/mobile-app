@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, TextInput } from 'react-native';
 
-function Input({ placeholder, secureTextEntry }) {
+function Input({ placeholder, secureTextEntry, style }) {
   return (
     <TextInput
       autoCapitalize="none"
       secureTextEntry={secureTextEntry}
-      style={styles.textInput}
+      style={[styles.textInput, style]}
       placeholder={placeholder}
     />
   );
@@ -28,11 +28,13 @@ const styles = StyleSheet.create({
 Input.defaultProps = {
   placeholder: '',
   secureTextEntry: false,
+  style: {},
 };
 
 Input.propTypes = {
   placeholder: PropTypes.string,
   secureTextEntry: PropTypes.bool,
+  style: PropTypes.instanceOf(StyleSheet),
 };
 
 export default Input;

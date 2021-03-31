@@ -16,7 +16,7 @@ function LandingPage() {
 const styles = StyleSheet.create({
   image: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: 'stretch',
     justifyContent: 'center',
     width: '100%',
   },

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import {
+  View, Text, StyleSheet, KeyboardAvoidingView,
+} from 'react-native';
 import { BlurView } from 'expo-blur';
 
 function LandingBody({ children }) {
@@ -10,9 +12,11 @@ function LandingBody({ children }) {
       style={styles.container}
     >
       <BlurView intensity={100} style={styles.blurContainer} tint="light">
-        <Text style={styles.title}>ImageUs</Text>
-        <Text style={styles.subtitle}>The easiest way to share images.</Text>
-        {children}
+        <View style={styles.backingView}>
+          <Text style={styles.title}>ImageUs</Text>
+          <Text style={styles.subtitle}>The easiest way to share images.</Text>
+          {children}
+        </View>
       </BlurView>
     </KeyboardAvoidingView>
   );
@@ -24,17 +28,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   subtitle: {
-    fontSize: 24,
+    fontSize: 18,
     color: 'gray',
   },
   blurContainer: {
-    padding: 20,
     borderRadius: 20,
     overflow: 'hidden',
   },
   container: {
     borderRadius: 20,
     padding: 10,
+  },
+  backingView: {
+    padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
   },
 });
 

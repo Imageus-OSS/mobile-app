@@ -17,7 +17,7 @@ function LoginCard() {
 const styles = StyleSheet.create({
   input: {
     borderColor: 'transparent',
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    backgroundColor: 'rgba(219, 219, 219, 0.5)',
   },
 });
 
