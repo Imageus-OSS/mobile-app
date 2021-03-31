@@ -1,13 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Card from "./components/Card";
-import LoginCard from "./components/LoginCard";
+import { StyleSheet, View } from 'react-native';
+import LandingBody from './components/LandingBody';
+import LoginCard from './components/LoginCard';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <LoginCard />
+      <LandingBody>
+        <LoginCard />
+      </LandingBody>
+      { /* eslint-disable-next-line react/style-prop-object */ }
       <StatusBar style="auto" />
     </View>
   );
