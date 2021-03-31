@@ -29,7 +29,7 @@ Card.propTypes = {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: '600',
     margin: 20,
     textAlign: 'left',
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: '75%',
+    minWidth: '100%',
     padding: 10,
   },
 });

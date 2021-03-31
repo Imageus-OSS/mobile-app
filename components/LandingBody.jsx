@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  View, Text, StyleSheet, KeyboardAvoidingView,
-} from 'react-native';
+import { Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { BlurView } from 'expo-blur';
 
 function LandingBody({ children }) {
   return (
@@ -10,23 +9,32 @@ function LandingBody({ children }) {
       behavior="position"
       style={styles.container}
     >
-      <View>
+      <BlurView intensity={100} style={styles.blurContainer} tint="light">
         <Text style={styles.title}>ImageUs</Text>
         <Text style={styles.subtitle}>The easiest way to share images.</Text>
         {children}
-      </View>
+      </BlurView>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 54,
+    fontSize: 32,
     fontWeight: '600',
   },
   subtitle: {
-    fontSize: 32,
+    fontSize: 24,
     color: 'gray',
+  },
+  blurContainer: {
+    padding: 20,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  container: {
+    borderRadius: 20,
+    padding: 10,
   },
 });
 

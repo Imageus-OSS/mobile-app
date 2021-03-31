@@ -18,6 +18,7 @@
         "react"
     ],
     "rules": {
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "global-require": "off"
     }
 }
