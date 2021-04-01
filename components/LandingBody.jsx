@@ -24,10 +24,11 @@ function LandingBody({ children }) {
 
 const styles = StyleSheet.create({
   title: {
+    fontFamily: 'Poppins_600SemiBold',
     fontSize: 32,
-    fontWeight: '600',
   },
   subtitle: {
+    fontFamily: 'Poppins_500Medium',
     fontSize: 18,
     color: 'gray',
   },
