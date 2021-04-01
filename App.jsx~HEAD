@@ -1,18 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+<<<<<<< HEAD:App.jsx
+import { StyleSheet, View } from 'react-native';
+import LandingPage from './pages/LandingPage';
+=======
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Card from "./components/Card";
 import LoginCard from "./components/LoginCard";
 import RegisterCard from "./components/RegisterCard";
+>>>>>>> 099aa9ae11f5d885f8525562f385379c7f44536a:App.js
 
 export default function App() {
   return (
     <View style={styles.container}>
+<<<<<<< HEAD:App.jsx
+      <LandingPage />
+      { /* eslint-disable-next-line react/style-prop-object */ }
+      <StatusBar style="auto" />
+=======
       <ScrollView>
         <LoginCard />
         <RegisterCard />
         <StatusBar style="auto" />
       </ScrollView>
+>>>>>>> 099aa9ae11f5d885f8525562f385379c7f44536a:App.js
     </View>
   );
 }
@@ -23,5 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 0,
+    margin: 0,
   },
 });
