@@ -1,14 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Card from "./components/Card";
 import LoginCard from "./components/LoginCard";
+import RegisterCard from "./components/RegisterCard";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <LoginCard />
-      <StatusBar style="auto" />
+      <ScrollView>
+        <LoginCard />
+        <RegisterCard />
+        <StatusBar style="auto" />
+      </ScrollView>
     </View>
   );
 }
