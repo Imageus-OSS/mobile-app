@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     margin: 20,
-    textAlign: 'left',
+    textAlign: 'center',
     width: '100%',
   },
   container: {

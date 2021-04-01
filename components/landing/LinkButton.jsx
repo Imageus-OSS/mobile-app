@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   button: {
     padding: 13,
     fontSize: 15,
-    color: 'blue',
+    color: '#007AFF',
     textAlign: 'center',
   },
 });
