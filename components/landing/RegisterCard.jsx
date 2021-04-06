@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
 import { Formik } from 'formik';
+import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import LandingCard from './LandingCard';
 import Input from '../Input';
@@ -13,10 +14,20 @@ function RegisterCard({ switchCard }) {
     switchCard('login');
   }
 
+  // yup vallidation 
+  const RegisterSchema = yup.object({
+    firstName: yup.string().required('First name is required'),
+    lastName: yup.string().required('Last name is required'),
+    username: yup.string().required('Username is required'),
+    email: yup.string().required('Email is required').email('Please enter a valid email'),
+    password: yup.string().required('Password is required')
+  })
+
   return (
     <LandingCard title="Register">
       <Formik
         initialValues={{ firstName: '', lastName: '', username: '', email: '', password: '' }}
+        validationSchema={RegisterSchema}
         onSubmit={(values) => {
           console.log(values);
         }}
