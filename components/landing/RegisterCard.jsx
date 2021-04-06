@@ -1,4 +1,6 @@
 import React from 'react';
+import { View } from 'react-native';
+import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import LandingCard from './LandingCard';
 import Input from '../Input';
@@ -13,19 +15,23 @@ function RegisterCard({ switchCard }) {
 
   return (
     <LandingCard title="Register">
-      <Input style={InputStyles.landing} placeholder="First name" />
-      <Input style={InputStyles.landing} placeholder="Last name" />
-      <Input style={InputStyles.landing} placeholder="Username" />
-      <Input style={InputStyles.landing} placeholder="Email" />
-      <Input style={InputStyles.landing} placeholder="Password" />
-      <Button title="Register" onPress={register} />
-      <LinkButton title="Back To Login" onPress={() => switchCard('login')} />
+      <Formik>
+        <View>
+          <Input style={InputStyles.landing} placeholder="First name" />
+          <Input style={InputStyles.landing} placeholder="Last name" />
+          <Input style={InputStyles.landing} placeholder="Username" />
+          <Input style={InputStyles.landing} placeholder="Email" />
+          <Input style={InputStyles.landing} placeholder="Password" />
+          <Button title="Register" onPress={register} />
+          <LinkButton title="Back To Login" onPress={() => switchCard('login')} />
+        </View>
+      </Formik>
     </LandingCard>
   );
 }
 
 RegisterCard.defaultProps = {
-  switchCard: () => {},
+  switchCard: () => { },
 };
 
 RegisterCard.propTypes = {
