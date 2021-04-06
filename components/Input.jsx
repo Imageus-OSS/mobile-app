@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, TextInput } from 'react-native';
 
-function Input({ placeholder, secureTextEntry, style }) {
+function Input({ placeholder, secureTextEntry, style, onChangeText }) {
   return (
     <TextInput
       autoCapitalize="none"
       secureTextEntry={secureTextEntry}
       style={[styles.textInput, style]}
       placeholder={placeholder}
+      onChangeText={onChangeText}
     />
   );
 }
