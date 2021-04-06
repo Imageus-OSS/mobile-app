@@ -47,7 +47,7 @@ function RegisterCard({ switchCard }) {
               onChangeText={props.handleChange('email')}
               value={props.values.email} />
             <Input style={InputStyles.landing} placeholder="Password"
-              onChangeText={props.handleChange('password')}
+              onChangeText={props.handleChange('password')} secureTextEntry
               value={props.values.password} />
             <Button title="Register" onPress={props.handleSubmit} />
             <LinkButton title="Back To Login" onPress={() => switchCard('login')} />
