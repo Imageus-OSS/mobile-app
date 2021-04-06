@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import LandingCard from './LandingCard';
@@ -15,16 +15,33 @@ function RegisterCard({ switchCard }) {
 
   return (
     <LandingCard title="Register">
-      <Formik>
-        <View>
-          <Input style={InputStyles.landing} placeholder="First name" />
-          <Input style={InputStyles.landing} placeholder="Last name" />
-          <Input style={InputStyles.landing} placeholder="Username" />
-          <Input style={InputStyles.landing} placeholder="Email" />
-          <Input style={InputStyles.landing} placeholder="Password" />
-          <Button title="Register" onPress={register} />
-          <LinkButton title="Back To Login" onPress={() => switchCard('login')} />
-        </View>
+      <Formik
+        initialValues={{ firstName: '', lastName: '', username: '', email: '', password: '' }}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      >
+        {(props) => (
+          <View>
+            <Input style={InputStyles.landing} placeholder="First name"
+              onChangeText={props.handleChange('firstName')}
+              value={props.values.firstName} />
+            <Input style={InputStyles.landing} placeholder="Last name"
+              onChangeText={props.handleChange('lastName')}
+              value={props.values.lastName} />
+            <Input style={InputStyles.landing} placeholder="Username"
+              onChangeText={props.handleChange('username')}
+              value={props.values.username} />
+            <Input style={InputStyles.landing} placeholder="Email"
+              onChangeText={props.handleChange('email')}
+              value={props.values.email} />
+            <Input style={InputStyles.landing} placeholder="Password"
+              onChangeText={props.handleChange('password')}
+              value={props.values.password} />
+            <Button title="Register" onPress={props.handleSubmit} />
+            <LinkButton title="Back To Login" onPress={() => switchCard('login')} />
+          </View>
+        )}
       </Formik>
     </LandingCard>
   );
