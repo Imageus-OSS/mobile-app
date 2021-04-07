@@ -10,31 +10,44 @@ import LinkButton from './LinkButton';
 import InputStyles from '../../styles/InputStyles';
 
 function LoginCard({ switchCard }) {
-  function login() {
-    switchCard('register');
-  }
-
   const InputSchema = yup.object({
     username: yup.string().required(),
-    password: yup.string().required()
-  })
+    password: yup.string().required(),
+  });
+
+  function login(credentials) {
+    console.log(credentials);
+  }
 
   return (
     <LandingCard title="Login">
       <Formik
-        initialValues={{ username: '', password: '' }}
         validationSchema={InputSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        initialValues={{ username: '', password: '' }}
+        onSubmit={login}
       >
-        {(props) => (
+        {({
+          handleChange, handleBlur, handleSubmit, values, errors,
+        }) => (
           <View>
-            <Input style={InputStyles.landing} placeholder="Username"
-              onChangeText={props.handleChange('username')} />
-            <Input style={InputStyles.landing} placeholder="Password" secureTextEntry
-              onChangeText={props.handleChange('password')} />
-            <Button title="Login" onPress={props.handleSubmit} />
+            <Input
+              style={InputStyles.landing}
+              placeholder="Username"
+              value={values.username}
+              handleBlur={handleBlur}
+              onChangeText={handleChange('username')}
+              error={errors.username}
+            />
+            <Input
+              style={InputStyles.landing}
+              placeholder="Password"
+              value={values.password}
+              secureTextEntry
+              handleBlur={handleBlur}
+              onChangeText={handleChange('password')}
+              error={errors.password}
+            />
+            <Button title="Login" onPress={handleSubmit} />
             <LinkButton title="Register" onPress={() => switchCard('register')} />
           </View>
         )}

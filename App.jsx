@@ -9,8 +9,8 @@ import LandingPage from './pages/LandingPage';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Poppins_600SemiBold,
     Poppins_500Medium,
+    Poppins_600SemiBold,
     Poppins_400Regular,
   });
 

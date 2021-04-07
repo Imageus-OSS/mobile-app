@@ -1,16 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TextInput } from 'react-native';
+import {
+  View, ViewPropTypes, StyleSheet, TextInput, Text,
+} from 'react-native';
 
-function Input({ placeholder, secureTextEntry, style, onChangeText }) {
+function Input({
+  placeholder, secureTextEntry, style, onChangeText, value, error,
+}) {
   return (
-    <TextInput
-      autoCapitalize="none"
-      secureTextEntry={secureTextEntry}
-      style={[styles.textInput, style]}
-      placeholder={placeholder}
-      onChangeText={onChangeText}
-    />
+    <View style={styles.container}>
+      <TextInput
+        value={value}
+        autoCapitalize="none"
+        secureTextEntry={secureTextEntry}
+        style={[styles.textInput, style]}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+      />
+      {error
+        ? <Text style={styles.errorView}>{error}</Text> : null}
+    </View>
   );
 }
 
@@ -22,20 +31,32 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 40,
     padding: 10,
+  },
+  errorView: {
+    margin: 5,
+    color: 'red',
+  },
+  container: {
     marginBottom: 12,
   },
 });
 
 Input.defaultProps = {
+  value: '',
+  error: null,
   placeholder: '',
   secureTextEntry: false,
   style: {},
+  onChangeText: () => {},
 };
 
 Input.propTypes = {
+  value: PropTypes.string,
+  onChangeText: PropTypes.func,
   placeholder: PropTypes.string,
   secureTextEntry: PropTypes.bool,
-  style: PropTypes.instanceOf(StyleSheet),
+  style: ViewPropTypes.style,
+  error: PropTypes.string,
 };
 
 export default Input;
