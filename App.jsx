@@ -5,7 +5,7 @@ import {
   useFonts, Poppins_600SemiBold, Poppins_500Medium, Poppins_400Regular,
 } from '@expo-google-fonts/poppins';
 import AppLoading from 'expo-app-loading';
-import LandingPage from './pages/LandingPage';
+import MainPage from './src/pages/MainPage';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,7 +20,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <LandingPage />
+      <MainPage />
       { /* eslint-disable-next-line react/style-prop-object */ }
       <StatusBar style="auto" />
     </View>
