@@ -17,6 +17,7 @@ function LoginCard({ switchCard, onLogin }) {
 
   function login(credentials) {
     console.log(credentials);
+    onLogin();
   }
 
   return (
@@ -57,10 +58,12 @@ function LoginCard({ switchCard, onLogin }) {
 }
 
 LoginCard.defaultProps = {
-  switchCard: () => { },
+  switchCard: () => {},
+  onLogin: () => {},
 };
 
 LoginCard.propTypes = {
+  onLogin: PropTypes.func,
   switchCard: PropTypes.func,
 };
 

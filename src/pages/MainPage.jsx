@@ -3,16 +3,16 @@ import { View, Modal } from 'react-native';
 import LoginModal from './LandingPage';
 
 function MainPage() {
-  const { isLoggedIn, setLoggedIn } = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
 
   return (
-    <View>
+    <View style={{ backgroundColor: 'white' }}>
       <Modal
-        animationType="slide"
         presentationStyle="formSheet"
-        visible
+        animationType="slide"
+        visible={isLoggedIn}
       >
-        <LoginModal />
+        <LoginModal onLogin={() => setLoggedIn(false)} />
       </Modal>
     </View>
   );
