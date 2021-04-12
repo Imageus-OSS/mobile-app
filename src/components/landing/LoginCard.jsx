@@ -15,16 +15,19 @@ function LoginCard({ switchCard, onLogin }) {
     username: yup.string().required(),
     password: yup.string().required(),
   });
+  // eslint-disable-next-line no-unused-vars
   const [err, setError] = useState(null);
 
   async function login(credentials) {
     console.log(credentials);
 
     try {
-      await API.login(values.username, data.password);
+      await API.login(credentials.username, credentials.password);
     } catch (e) {
       setError(e.message);
     }
+
+    onLogin();
   }
 
   return (

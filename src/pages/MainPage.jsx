@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Modal } from 'react-native';
+import { View, Modal, Button } from 'react-native';
 import LoginModal from './LandingPage';
 
 function MainPage() {
@@ -14,6 +14,7 @@ function MainPage() {
       >
         <LoginModal onLogin={() => setLoggedIn(false)} />
       </Modal>
+      <Button title="Hello" />
     </View>
   );
 }
