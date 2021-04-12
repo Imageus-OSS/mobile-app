@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -8,10 +8,24 @@ import Input from '../Input';
 import Button from '../Button';
 import LinkButton from './LinkButton';
 import InputStyles from '../../styles/InputStyles';
+import API from '../../api/API';
 
 function RegisterCard({ switchCard }) {
-  function register(credentials) {
+  async function register(credentials) {
     console.log(credentials);
+
+    try {
+      await API.register({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        username: values.username,
+        password: values.password
+      });
+    } catch (e) {
+      setError(e.message);
+      return;
+    }
   }
 
   // yup validation
@@ -22,6 +36,8 @@ function RegisterCard({ switchCard }) {
     email: yup.string().required('Email is required').email('Please enter a valid email'),
     password: yup.string().required('Password is required'),
   });
+
+  const [err, setError] = useState(null);
 
   return (
     <LandingCard title="Register">
