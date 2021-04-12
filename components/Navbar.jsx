@@ -4,7 +4,8 @@ import { View, Text, StyleSheet } from 'react-native';
 function componentName({ title, initials }) {
     return (
         <View style={styles.header}>
-            {/* Menu Icon */ }
+            {/** Placeholder for Menu icon */}
+            <View style={styles.menu}></View>
             <View>
                 <Text style={styles.title}>{title}</Text>
             </View>
@@ -20,21 +21,30 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     title: {
         fontFamily: 'Poppins_600SemiBold',
         fontSize: 24,
         fontWeight: '600',
-        margin: 20,
+        //margin: 20,
         textAlign: 'center',
         width: '100%'
+    },
+    menu: {
+        height: 40,
+        width: 40,
+        backgroundColor: 'black',
+        margin: 17
     },
     circle: {
         height: 35,
         width: 35,
-        borderRadius: 35/2,
+        borderRadius: 35 / 2,
         backgroundColor: '#0065FD30',
+        alignContent: 'center',
+        justifyContent: 'center'
     },
     circleText: {
         fontFamily: 'Poppins_600SemiBold',
