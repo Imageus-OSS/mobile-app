@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-function componentName({ title }) {
+function componentName({ title, initials }) {
     return (
         <View style={styles.header}>
             {/* Menu Icon */ }
             <View>
                 <Text style={styles.title}>{title}</Text>
             </View>
-            {/* Profile icon right aligned */}
+            <View style={styles.circle}>
+                <Text style={styles.circleText}> {initials}</Text>
+            </View>
         </View>
     )
 };
@@ -26,8 +28,23 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         margin: 20,
         textAlign: 'center',
-        width: '100%',
+        width: '100%'
     },
+    circle: {
+        height: 35,
+        width: 35,
+        borderRadius: 35/2,
+        backgroundColor: '#0065FD30',
+    },
+    circleText: {
+        fontFamily: 'Poppins_600SemiBold',
+        fontSize: 15,
+        fontWeight: 'bold',
+        margin: 5,
+        textAlign: 'center',
+        width: '100%',
+        color: '#0148FF'
+    }
 });
 
 export default componentName;
