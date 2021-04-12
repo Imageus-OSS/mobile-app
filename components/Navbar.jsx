@@ -1,7 +1,8 @@
 import React from 'react';
+import Prototypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 
-function componentName({ title, initials }) {
+function Navbar({ title, initials }) {
     return (
         <View style={styles.header}>
             {/** Placeholder for Menu icon */}
@@ -22,20 +23,20 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
     },
     title: {
         fontFamily: 'Poppins_600SemiBold',
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
-        width: '100%'
+        width: '100%',
     },
     menu: {
         height: 20,
         width: 25,
         backgroundColor: 'black',
-        margin: 10
+        margin: 10,
     },
     circle: {
         height: 35,
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
         marginLeft: '52%',
         backgroundColor: '#0065FD30',
         alignContent: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     circleText: {
         fontFamily: 'Poppins_600SemiBold',
@@ -52,8 +53,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         width: '100%',
-        color: '#0148FF'
+        color: '#0148FF',
     }
 });
 
-export default componentName;
+Navbar.Prototypes = {
+    title: Prototypes.string,
+    initials: Prototypes.string,
+}
+
+export default Navbar;
