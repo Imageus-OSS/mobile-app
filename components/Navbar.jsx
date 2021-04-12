@@ -27,30 +27,29 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: 'Poppins_600SemiBold',
         fontSize: 24,
-        fontWeight: '600',
-        //margin: 20,
+        fontWeight: 'bold',
         textAlign: 'center',
         width: '100%'
     },
     menu: {
-        height: 40,
-        width: 40,
+        height: 20,
+        width: 25,
         backgroundColor: 'black',
-        margin: 17
+        margin: 10
     },
     circle: {
         height: 35,
         width: 35,
         borderRadius: 35 / 2,
+        marginLeft: '52%',
         backgroundColor: '#0065FD30',
         alignContent: 'center',
         justifyContent: 'center'
     },
     circleText: {
         fontFamily: 'Poppins_600SemiBold',
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: 'bold',
-        margin: 5,
         textAlign: 'center',
         width: '100%',
         color: '#0148FF'
