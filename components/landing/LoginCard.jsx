@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -8,15 +8,24 @@ import Button from '../Button';
 import LandingCard from './LandingCard';
 import LinkButton from './LinkButton';
 import InputStyles from '../../styles/InputStyles';
+import API from '../../api/API';
 
 function LoginCard({ switchCard }) {
   const InputSchema = yup.object({
     username: yup.string().required(),
     password: yup.string().required(),
   });
+  const [err, setError] = useState(null);
 
-  function login(credentials) {
+  async function login(credentials) {
     console.log(credentials);
+
+    try {
+      await API.login(values.username, data.password);
+    } catch (e) {
+      setError(e.message);
+      return;
+    }
   }
 
   return (
