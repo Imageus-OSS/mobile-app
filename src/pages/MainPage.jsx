@@ -10,7 +10,7 @@ function MainPage() {
     let jwt;
     let user;
     try {
-      await AsyncStorage.clear();
+      await AsyncStorage.clear(); // TODO: Debug Only Code
       user = await AsyncStorage.getItem('user');
       jwt = await AsyncStorage.getItem('jwt');
     } catch (err) {
@@ -18,7 +18,6 @@ function MainPage() {
     }
 
     if (!user || !jwt) {
-      console.log('got here');
       setLoggedIn(false);
     }
   }
