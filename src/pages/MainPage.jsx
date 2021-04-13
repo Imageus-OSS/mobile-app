@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { View, Modal, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import LoginModal from './LandingPage';
 
 function MainPage() {
   const [isLoggedIn, setLoggedIn] = useState(true);
+  const navigation = useNavigation();
 
   async function checkUser() {
     let jwt;
     let user;
     try {
-      // await AsyncStorage.clear(); // TODO: Debug Only Code
+      await AsyncStorage.clear(); // TODO: Debug Only Code
       user = await AsyncStorage.getItem('user');
       jwt = await AsyncStorage.getItem('jwt');
     } catch (err) {
-      setLoggedIn(false);
+      navigation.navigate('Login');
     }
 
     if (!user || !jwt) {
-      setLoggedIn(false);
+      navigation.navigate('Login');
     }
   }
 
