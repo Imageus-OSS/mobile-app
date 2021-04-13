@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
@@ -12,20 +12,31 @@ import API from '../../api/API';
 
 function RegisterCard({ switchCard }) {
   async function register(credentials) {
-    console.log(credentials);
-
     try {
       await API.register({
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
-        username: values.username,
-        password: values.password
+        firstName: credentials.firstName,
+        lastName: credentials.lastName,
+        email: credentials.email,
+        username: credentials.username,
+        password: credentials.password,
       });
     } catch (e) {
       setError(e.message);
       return;
     }
+
+    Alert.alert(
+      'Account Created',
+      'Please look in your inbox for the verification email we just sent.',
+      [
+        {
+          text: 'Got it!',
+          onPress: () => switchCard('login'),
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    );
   }
 
   // yup validation
@@ -40,7 +51,7 @@ function RegisterCard({ switchCard }) {
   const [err, setError] = useState(null);
 
   return (
-    <LandingCard title="Register">
+    <LandingCard title="Register" error={err}>
       <Formik
         initialValues={{
           firstName: '', lastName: '', username: '', email: '', password: '',

@@ -4,13 +4,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginModal from './LandingPage';
 
 function MainPage() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
 
   async function checkUser() {
+    let jwt;
+    let user;
     try {
-      await AsyncStorage.getItem('user');
-      await AsyncStorage.getItem('jwt');
+      await AsyncStorage.clear();
+      user = await AsyncStorage.getItem('user');
+      jwt = await AsyncStorage.getItem('jwt');
     } catch (err) {
+      setLoggedIn(false);
+    }
+
+    if (!user || !jwt) {
+      console.log('got here');
       setLoggedIn(false);
     }
   }
@@ -24,7 +32,7 @@ function MainPage() {
       <Modal
         presentationStyle="formSheet"
         animationType="slide"
-        visible={isLoggedIn}
+        visible={!isLoggedIn}
       >
         <LoginModal onLogin={() => setLoggedIn(false)} />
       </Modal>
