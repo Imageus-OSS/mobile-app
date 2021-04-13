@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { PropTypes } from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Input from '../Input';
 import Button from '../Button';
 import LandingCard from './LandingCard';
@@ -19,19 +20,20 @@ function LoginCard({ switchCard, onLogin }) {
   const [err, setError] = useState(null);
 
   async function login(credentials) {
-    console.log(credentials);
-
     try {
-      await API.login(credentials.username, credentials.password);
+      const response = await API.login(credentials.username, credentials.password);
+
+      // Store shit in local storage
+      await AsyncStorage.setItem('jwt', response.token);
+      await AsyncStorage.setItem('user', JSON.stringify(response));
+      onLogin();
     } catch (e) {
       setError(e.message);
     }
-
-    onLogin();
   }
 
   return (
-    <LandingCard title="Login">
+    <LandingCard title="Login" error={err}>
       <Formik
         validationSchema={InputSchema}
         initialValues={{ username: '', password: '' }}

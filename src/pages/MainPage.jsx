@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
-import { View, Modal, Button } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Modal, Text } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginModal from './LandingPage';
 
 function MainPage() {
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  async function checkUser() {
+    try {
+      await AsyncStorage.getItem('user');
+      await AsyncStorage.getItem('jwt');
+    } catch (err) {
+      setLoggedIn(false);
+    }
+  }
+
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   return (
     <View style={{ backgroundColor: 'white' }}>
@@ -14,7 +28,7 @@ function MainPage() {
       >
         <LoginModal onLogin={() => setLoggedIn(false)} />
       </Modal>
-      <Button title="Hello" />
+      <Text>Something goes here... idk</Text>
     </View>
   );
 }
