@@ -11,7 +11,6 @@ function MainStack() {
       <Stack.Screen
         name="Home"
         component={MainPage}
-        col
         options={{
           headerShown: false,
         }}
@@ -26,11 +25,17 @@ function RootStack() {
       mode="modal"
       screenOptions={{
         cardOverlayEnabled: true,
+        headerTitleStyle: {
+          fontFamily: 'Poppins_600SemiBold',
+        },
       }}
     >
       <Stack.Screen
         name="Home"
         component={MainStack}
+        options={{
+          title: 'ImageUs',
+        }}
       />
       <Stack.Screen
         name="Login"
