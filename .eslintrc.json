@@ -21,6 +21,7 @@
         "no-use-before-define": "off",
         "global-require": "off",
         "camelcase": "off",
-        "no-alert": "off"
+        "no-alert": "off",
+        "arrow-parens": "off"
     }
 }

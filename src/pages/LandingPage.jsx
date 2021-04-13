@@ -2,26 +2,35 @@ import React, { useState } from 'react';
 import {
   ImageBackground, StyleSheet,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import LandingBody from '../components/LandingBody';
 import LoginCard from '../components/landing/LoginCard';
 import RegisterCard from '../components/landing/RegisterCard';
 
-function LandingPage() {
+function LoginModal({ onLogin }) {
   const [card, setCard] = useState('login');
 
   const cards = {
-    login: <LoginCard switchCard={setCard} />,
+    login: <LoginCard switchCard={setCard} onLogin={onLogin} />,
     register: <RegisterCard switchCard={setCard} />,
   };
 
   return (
-    <ImageBackground source={require('../assets/App-Splash.png')} style={styles.image}>
+    <ImageBackground source={require('../../assets/App-Splash.png')} style={styles.image}>
       <LandingBody>
         {cards[card]}
       </LandingBody>
     </ImageBackground>
   );
 }
+
+LoginModal.defaultProps = {
+  onLogin: () => {},
+};
+
+LoginModal.propTypes = {
+  onLogin: PropTypes.func,
+};
 
 const styles = StyleSheet.create({
   image: {
@@ -32,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LandingPage;
+export default LoginModal;

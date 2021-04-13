@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
@@ -8,10 +8,35 @@ import Input from '../Input';
 import Button from '../Button';
 import LinkButton from './LinkButton';
 import InputStyles from '../../styles/InputStyles';
+import API from '../../api/API';
 
 function RegisterCard({ switchCard }) {
-  function register(credentials) {
-    console.log(credentials);
+  async function register(credentials) {
+    try {
+      await API.register({
+        firstName: credentials.firstName,
+        lastName: credentials.lastName,
+        email: credentials.email,
+        username: credentials.username,
+        password: credentials.password,
+      });
+    } catch (e) {
+      setError(e.message);
+      return;
+    }
+
+    Alert.alert(
+      'Account Created',
+      'Please look in your inbox for the verification email we just sent.',
+      [
+        {
+          text: 'Got it!',
+          onPress: () => switchCard('login'),
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    );
   }
 
   // yup validation
@@ -21,16 +46,21 @@ function RegisterCard({ switchCard }) {
     username: yup.string().required('Username is required'),
     email: yup.string().required('Email is required').email('Please enter a valid email'),
     password: yup.string().required('Password is required'),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match"),
   });
 
+  const [err, setError] = useState(null);
+
   return (
-    <LandingCard title="Register">
+    <LandingCard title="Register" error={err}>
       <Formik
         initialValues={{
-          firstName: '', lastName: '', username: '', email: '', password: '',
+          firstName: '', lastName: '', username: '', email: '', password: '', confirmPassword: '',
         }}
         validationSchema={RegisterSchema}
         onSubmit={register}
+        validateOnChange={false}
+        validateOnBlur={false}
       >
         {({
           handleChange, handleBlur, handleSubmit, values, errors,
@@ -76,6 +106,15 @@ function RegisterCard({ switchCard }) {
               secureTextEntry
               value={values.password}
               error={errors.password}
+            />
+            <Input
+              style={InputStyles.landing}
+              placeholder="Confirm Password"
+              onChangeText={handleChange('confirmPassword')}
+              handleBlur={handleBlur}
+              secureTextEntry
+              value={values.confirmPassword}
+              error={errors.confirmPassword}
             />
             <Button title="Register" onPress={handleSubmit} />
             <LinkButton title="Back To Login" onPress={() => switchCard('login')} />
