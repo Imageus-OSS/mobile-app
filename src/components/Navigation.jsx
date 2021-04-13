@@ -1,21 +1,24 @@
 import React from 'react';
 import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import GroupDrawer from '../pages/GroupDrawer';
 import MainPage from '../pages/MainPage';
 import LoginModal from '../pages/LandingPage';
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function MainStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <Drawer.Navigator initialRouteName="Home" drawerContent={GroupDrawer}>
+      <Drawer.Screen
         name="Home"
         component={MainPage}
         options={{
           headerShown: false,
         }}
       />
-    </Stack.Navigator>
+    </Drawer.Navigator>
   );
 }
 
