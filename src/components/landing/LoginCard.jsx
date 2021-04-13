@@ -38,6 +38,8 @@ function LoginCard({ switchCard, onLogin }) {
         validationSchema={InputSchema}
         initialValues={{ username: '', password: '' }}
         onSubmit={login}
+        validateOnChange={false}
+        validateOnBlur={false}
       >
         {({
           handleChange, handleBlur, handleSubmit, values, errors,

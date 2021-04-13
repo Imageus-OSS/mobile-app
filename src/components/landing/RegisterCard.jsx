@@ -58,6 +58,8 @@ function RegisterCard({ switchCard }) {
         }}
         validationSchema={RegisterSchema}
         onSubmit={register}
+        validateOnChange={false}
+        validateOnBlur={false}
       >
         {({
           handleChange, handleBlur, handleSubmit, values, errors,
