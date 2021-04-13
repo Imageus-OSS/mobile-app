@@ -46,6 +46,7 @@ function RegisterCard({ switchCard }) {
     username: yup.string().required('Username is required'),
     email: yup.string().required('Email is required').email('Please enter a valid email'),
     password: yup.string().required('Password is required'),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match"),
   });
 
   const [err, setError] = useState(null);
@@ -54,7 +55,7 @@ function RegisterCard({ switchCard }) {
     <LandingCard title="Register" error={err}>
       <Formik
         initialValues={{
-          firstName: '', lastName: '', username: '', email: '', password: '',
+          firstName: '', lastName: '', username: '', email: '', password: '', confirmPassword: '',
         }}
         validationSchema={RegisterSchema}
         onSubmit={register}
@@ -105,6 +106,15 @@ function RegisterCard({ switchCard }) {
               secureTextEntry
               value={values.password}
               error={errors.password}
+            />
+            <Input
+              style={InputStyles.landing}
+              placeholder="Confirm Password"
+              onChangeText={handleChange('confirmPassword')}
+              handleBlur={handleBlur}
+              secureTextEntry
+              value={values.confirmPassword}
+              error={errors.confirmPassword}
             />
             <Button title="Register" onPress={handleSubmit} />
             <LinkButton title="Back To Login" onPress={() => switchCard('login')} />
