@@ -10,7 +10,7 @@ function MainPage() {
     let jwt;
     let user;
     try {
-      await AsyncStorage.clear(); // TODO: Debug Only Code
+      // await AsyncStorage.clear(); // TODO: Debug Only Code
       user = await AsyncStorage.getItem('user');
       jwt = await AsyncStorage.getItem('jwt');
     } catch (err) {
@@ -33,7 +33,7 @@ function MainPage() {
         animationType="slide"
         visible={!isLoggedIn}
       >
-        <LoginModal onLogin={() => setLoggedIn(false)} />
+        <LoginModal onLogin={() => setLoggedIn(true)} />
       </Modal>
       <Text>Something goes here... idk</Text>
     </View>
