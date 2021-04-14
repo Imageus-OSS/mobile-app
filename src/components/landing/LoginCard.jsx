@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { PropTypes } from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import Input from '../Input';
 import Button from '../Button';
 import LandingCard from './LandingCard';
@@ -11,13 +12,13 @@ import LinkButton from './LinkButton';
 import InputStyles from '../../styles/InputStyles';
 import API from '../../api/API';
 
-function LoginCard({ switchCard, onLogin }) {
+function LoginCard({ switchCard }) {
   const InputSchema = yup.object({
     username: yup.string().required(),
     password: yup.string().required(),
   });
-  // eslint-disable-next-line no-unused-vars
   const [err, setError] = useState(null);
+  const navigation = useNavigation();
 
   async function login(credentials) {
     try {
@@ -26,7 +27,8 @@ function LoginCard({ switchCard, onLogin }) {
       // Store shit in local storage
       await AsyncStorage.setItem('jwt', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response));
-      onLogin();
+      navigation.goBack();
+      // onLogin();
     } catch (e) {
       setError(e.message);
     }
@@ -73,11 +75,9 @@ function LoginCard({ switchCard, onLogin }) {
 
 LoginCard.defaultProps = {
   switchCard: () => {},
-  onLogin: () => {},
 };
 
 LoginCard.propTypes = {
-  onLogin: PropTypes.func,
   switchCard: PropTypes.func,
 };
 
