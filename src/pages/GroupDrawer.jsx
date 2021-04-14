@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View, StyleSheet, Text, ScrollView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/Button';
 import ListItem from '../components/main/ListItem';
 
@@ -38,18 +39,21 @@ const groups = [
 
 function GroupDrawer() {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.title}>Your Groups</Text>
-        <View style={styles.groupList}>
-          {groups.map(group => (
-            <ListItem imageURL={group.imageURL} title={group.title} members={420} />
-          ))}
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.title}>Your Groups</Text>
+          <View style={styles.groupList}>
+            {groups.map(group => (
+              <ListItem imageURL={group.imageURL} title={group.title} members={group.members} />
+            ))}
+          </View>
+          <Button type="accent" title="Join Group" />
+          <Button type="accent" title="Create Group" />
         </View>
-        <Button type="accent" title="Join Group" />
-        <Button type="accent" title="Create Group" />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
+
   );
 }
 

@@ -47,6 +47,7 @@ function MainPage() {
     let jwt;
     let user;
     try {
+      await AsyncStorage.clear();
       user = await AsyncStorage.getItem('user');
       jwt = await AsyncStorage.getItem('jwt');
     } catch (err) {

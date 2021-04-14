@@ -1,9 +1,10 @@
 import React from 'react';
 import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import GroupDrawer from '../pages/GroupDrawer';
-import MainPage from '../pages/MainPage';
-import LoginModal from '../pages/LandingPage';
+import { Ionicons } from '@expo/vector-icons';
+import GroupDrawer from './GroupDrawer';
+import MainPage from './MainPage';
+import LoginModal from './LoginModal';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -14,9 +15,11 @@ function MainStack() {
       <Drawer.Screen
         name="Home"
         component={MainPage}
-        options={{
-          headerShown: false,
-        }}
+        options={({ navigation }) => ({
+          headerShown: true,
+          title: 'ImageUs',
+          headerLeft: () => (<Ionicons name="ios-reorder-three-sharp" size={36} onPress={() => navigation.toggleDrawer()} />),
+        })}
       />
     </Drawer.Navigator>
   );
@@ -37,7 +40,7 @@ function RootStack() {
         name="Home"
         component={MainStack}
         options={{
-          title: 'ImageUs',
+          headerShown: false,
         }}
       />
       <Stack.Screen

@@ -7,7 +7,7 @@ import {
   DMSans_500Medium, DMSans_400Regular, DMSans_700Bold,
 } from '@expo-google-fonts/dm-sans';
 import { NavigationContainer } from '@react-navigation/native';
-import Stack from './src/components/Navigation';
+import Stack from './src/pages/Navigation';
 
 export default function App() {
   const [loadedFonts, setLoadedFonts] = useState(false);
