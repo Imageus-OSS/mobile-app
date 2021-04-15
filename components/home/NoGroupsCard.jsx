@@ -19,10 +19,10 @@ function NoGroupsCard({ }) {
                 <View>
                     <Text style={styles.paragraph}>Join some groups to start sharing photos</Text>
                     <View style={styles.button}>
-                        <Button title="Join Group" onPress={() => Alert.alert("Join Group!")} />
+                        <Button title="Join Group" onPress={() => Alert.alert('Join Group!')} />
                     </View>
                     <View style={styles.button}>
-                        <Button title="Create Group" onPress={() => Alert.alert("Create Group!")} />
+                        <Button title="Create Group" onPress={() => Alert.alert('Create Group!')} />
                     </View>
                 </View>
             </View>

@@ -10,7 +10,7 @@ function JoinGroup({ }) {
     return (
         <View style={styles.background}>
             <View style={styles.header}>
-                <Navbar title='ImageUs' initials='JT' />
+                <Navbar title="ImageUs" initials="JT" />
                 <View style={styles.container}>
                     <View style={styles.titleView}>
                         <Text style={styles.title}>Join Group</Text>
@@ -22,10 +22,10 @@ function JoinGroup({ }) {
                 </View>
                 <View style={styles.buttonCard}>
                     <View style={styles.button}>
-                        <Button title='Join Group' onPress={() => Alert.alert('Join Group')} />
+                        <Button title="Join Group" onPress={() => Alert.alert('Join Group')} />
                     </View>
                     <View style={styles.button}>
-                        <Button title='Cancel' onPress={() => Alert.alert('Cancel')}/>
+                        <Button title="Cancel" onPress={() => Alert.alert('Cancel')}/>
                     </View>
                 </View>
             </View>

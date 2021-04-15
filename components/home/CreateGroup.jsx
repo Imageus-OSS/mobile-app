@@ -10,13 +10,13 @@ function CreateGroup({ }) {
     return (
         <View style={styles.background}>
             <View style={styles.header}>
-                <Navbar title='ImageUs' initials='JT' />
+                <Navbar title="ImageUs" initials="JT" />
                 <View style={styles.container}>
                     <View style={styles.titleView}>
                         <Text style={styles.title}>Create Group</Text>
                     </View>
                     <Text style={styles.subtitle}>Group Name</Text>
-                    <Input placeholder='Placeholder'></Input>
+                    <Input placeholder="Placeholder"></Input>
                     <View style={styles.privateView}>
                         <View style={styles.icon}></View>
                         <View>
@@ -29,10 +29,10 @@ function CreateGroup({ }) {
                 </View>
                 <View style={styles.buttonCard}>
                     <View style={styles.button}>
-                        <Button title='Create' onPress={() => Alert.alert('Create Group')} />
+                        <Button title="Create" onPress={() => Alert.alert('Create Group')} />
                     </View>
                     <View style={styles.button}>
-                        <Button title='Cancel' onPress={() => Alert.alert('Cancel')} />
+                        <Button title="Cancel" onPress={() => Alert.alert('Cancel')} />
                     </View>
                 </View>
             </View>
