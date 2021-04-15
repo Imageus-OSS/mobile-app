@@ -18,13 +18,14 @@ function JoinGroup({ }) {
                     <Text style={styles.subtitle}>Group Code</Text>
                     <Input placeholder='example-code'></Input>
                     <View style={styles.icon}></View>
+                    {/** usual icon placeholder since I couldnt get AntDesign to work */}
                 </View>
                 <View style={styles.buttonCard}>
                     <View style={styles.button}>
-                        <Button title='Join Group' />
+                        <Button title='Join Group' onPress={() => Alert.alert('Join Group')} />
                     </View>
                     <View style={styles.button}>
-                        <Button title='Cancel' />
+                        <Button title='Cancel' onPress={() => Alert.alert('Cancel')}/>
                     </View>
                 </View>
             </View>
