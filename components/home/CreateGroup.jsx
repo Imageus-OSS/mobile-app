@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import Button from '../Button';
 import Navbar from '../Navbar';
 import Input from '../Input';
+import BottomButtonCard from '../BottomButtonCard';
 //import InputStyles from '../../styles/InputStyles';
 
 function CreateGroup({ }) {
@@ -27,13 +28,11 @@ function CreateGroup({ }) {
                         <Text style={styles.paragraph}>Public groups can be joined through an invite link. Private groups can only be joined with an invite link after the owner grants them access.</Text>
                     </View>
                 </View>
-                <View style={styles.buttonCard}>
-                    <View style={styles.button}>
-                        <Button title="Create" onPress={() => Alert.alert('Create Group')} />
-                    </View>
-                    <View style={styles.button}>
-                        <Button title="Cancel" onPress={() => Alert.alert('Cancel')} />
-                    </View>
+                <View style={styles.buttonContainer}>
+                    <BottomButtonCard
+                        TopButtonText="Create" onPressTop={() => Alert.alert('Create Group')}
+                        BottomButtonText="Cancel" onPressBottom={() => Alert.alert('Cancel')}
+                    />
                 </View>
             </View>
         </View>
@@ -44,6 +43,7 @@ const styles = StyleSheet.create({
     background: {
         position: 'absolute',
         top: 0,
+        height: '100%',
     },
     header: {
         top: 10,
@@ -98,17 +98,9 @@ const styles = StyleSheet.create({
         letterSpacing: 0.4,
         lineHeight: 20,
     },
-    buttonCard: {
-        marginTop: 10,
-        padding: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        marginTop: 230,
-        elevation: 2.5, // shadow does not work on iOS so I can't make it
-    },
-    button: {
-        margin: 10,
-    },
+    buttonContainer: {
+        marginTop: 220,
+    }
 })
 
 export default CreateGroup;
