@@ -27,7 +27,7 @@ function JoinGroup({ }) {
                 </View>
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
         margin: 80,
         alignSelf: 'center',
     },
-})
+});
 
 export default JoinGroup;

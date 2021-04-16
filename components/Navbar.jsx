@@ -14,8 +14,8 @@ function Navbar({ title, initials }) {
                 <Text style={styles.circleText}> {initials}</Text>
             </View>
         </View>
-    )
-};
+    );
+}
 
 const styles = StyleSheet.create({
     header: {
@@ -54,12 +54,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: '100%',
         color: '#0148FF',
-    }
+    },
 });
 
 Navbar.Prototypes = {
     title: Prototypes.string,
     initials: Prototypes.string,
-}
+};
 
 export default Navbar;

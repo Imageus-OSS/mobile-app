@@ -26,7 +26,7 @@ function NoGroupsCard({ }) {
                 </View>
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -67,6 +67,6 @@ const styles = StyleSheet.create({
     button: {
         margin: 5,
     },
-})
+});
 
 export default NoGroupsCard;

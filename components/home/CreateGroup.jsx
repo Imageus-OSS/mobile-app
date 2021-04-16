@@ -34,7 +34,7 @@ function CreateGroup({ }) {
                 </View>
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         marginTop: 220,
-    }
-})
+    },
+});
 
 export default CreateGroup;
