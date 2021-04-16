@@ -25,6 +25,9 @@ function NoGroupsCard({ }) {
                     </View>
                 </View>
             </View>
+            <View style={styles.footer}>
+                <View style={styles.fileIcon}></View>
+            </View>
         </View>
     );
 }
@@ -66,6 +69,17 @@ const styles = StyleSheet.create({
     },
     button: {
         margin: 5,
+    },
+    footer: {
+        marginTop: 165,
+    },
+    fileIcon: {
+        height: 40,
+        width: 40,
+        borderRadius: 20,
+        backgroundColor: 'black',
+        margin: 10,
+        alignSelf: 'flex-end',
     },
 });
 
