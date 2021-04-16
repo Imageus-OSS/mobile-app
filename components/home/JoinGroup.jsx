@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import Button from '../Button';
 import Navbar from '../Navbar';
 import Input from '../Input';
+import BottomButtonCard from '../BottomButtonCard';
 //import InputStyles from '../../styles/InputStyles';
 
 function JoinGroup({ }) {
@@ -20,13 +21,11 @@ function JoinGroup({ }) {
                     <View style={styles.icon}></View>
                     {/** usual icon placeholder since I couldnt get AntDesign to work */}
                 </View>
-                <View style={styles.buttonCard}>
-                    <View style={styles.button}>
-                        <Button title="Join Group" onPress={() => Alert.alert('Join Group')} />
-                    </View>
-                    <View style={styles.button}>
-                        <Button title="Cancel" onPress={() => Alert.alert('Cancel')}/>
-                    </View>
+                <View>
+                    <BottomButtonCard
+                        TopButtonText="Join Group" onPressTop={() => Alert.alert('Join Group')}
+                        BottomButtonText="Cancel" onPressBottom={() => Alert.alert('Cancel')}
+                    />
                 </View>
             </View>
         </View>
@@ -71,16 +70,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'grey',
         margin: 80,
         alignSelf: 'center',
-    },
-    buttonCard: {
-        marginTop: 10,
-        padding: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        elevation: 2.5, // shadow does not work on iOS so I can't make it
-    },
-    button: {
-        margin: 10,
     },
 })
 
