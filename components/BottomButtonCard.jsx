@@ -29,4 +29,11 @@ const styles = StyleSheet.create({
     },
 });
 
+BottomButtonCard.Prototypes = {
+    TopButtonText: PropTypes.string,
+    BottomButtonCard: PropTypes.string,
+    onPressTop: PropTypes.func,
+    onPressBottom: PropTypes.func,
+};
+
 export default BottomButtonCard;
