@@ -1,5 +1,4 @@
 import React from 'react';
-import Prototypes from 'prop-types';
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import Button from '../Button';
 import Navbar from '../Navbar';

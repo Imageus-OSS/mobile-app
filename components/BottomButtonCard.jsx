@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Button from './Button';
 
 function BottomButtonCard({ TopButtonText, BottomButtonText, onPressTop, onPressBottom }) {
