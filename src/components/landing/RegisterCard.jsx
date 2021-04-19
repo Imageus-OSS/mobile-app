@@ -45,7 +45,9 @@ function RegisterCard({ switchCard }) {
     lastName: yup.string().required('Last name is required'),
     username: yup.string().required('Username is required'),
     email: yup.string().required('Email is required').email('Please enter a valid email'),
-    password: yup.string().required('Password is required'),
+    password: yup.string().required('Password is required')
+      .min(8, 'Password needs to be at least 8 characters long')
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Password must contain one uppercase, one lowercase, one number, and one special character'),
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match"),
   });
 
