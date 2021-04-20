@@ -7,6 +7,7 @@ function groupReducer(state, action) {
 
   switch (action.type) {
     case 'setIndex':
+      console.log(`setting index to ${action.payload}`);
       return {
         ...state,
         index: action.payload,

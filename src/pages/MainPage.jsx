@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import PhotoGrid from '../components/main/PhotoGrid';
+import API from '../api/API';
+import GroupsStateContext from '../contexts/GroupStateContext';
+import GroupDispatch from '../contexts/GroupDispatchContext';
 
 const photos = [
   'https://images.unsplash.com/photo-1617450599731-0ec86e189589?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
@@ -42,14 +45,16 @@ const photos = [
 
 function MainPage() {
   const navigation = useNavigation();
+  const dispatch = useContext(GroupDispatch);
+  const groupData = useContext(GroupsStateContext);
+  let jwt;
+  let user;
 
   async function checkUser() {
-    let jwt;
-    let user;
     try {
-      await AsyncStorage.clear();
-      user = await AsyncStorage.getItem('user');
+      user = JSON.parse(await AsyncStorage.getItem('user'));
       jwt = await AsyncStorage.getItem('jwt');
+      await getGroups();
     } catch (err) {
       navigation.navigate('Login');
     }
@@ -57,6 +62,20 @@ function MainPage() {
     if (!user || !jwt) {
       navigation.navigate('Login');
     }
+  }
+
+  async function getGroups() {
+    await API.getGroups(user.id).then(fetchedGroups => {
+      dispatch({
+        type: 'init',
+        payload: {
+          groups: fetchedGroups,
+          index: 0,
+          images: null,
+        },
+      });
+    });
+    console.log(groupData);
   }
 
   useEffect(() => {
