@@ -10,7 +10,7 @@ function PhotoGrid({ photos }) {
         <View style={styles.container}>
           {
             photos.map(photo => (
-              <PhotoThumbnail src={photo} />
+              <PhotoThumbnail key={photo.URL} src={photo} />
             ))
         }
         </View>

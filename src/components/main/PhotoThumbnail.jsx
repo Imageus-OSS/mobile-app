@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 function PhotoThumbnail({ src }) {
   return (
-    <Image style={styles.photo} source={{ uri: src }} />
+    <Image style={styles.photo} source={{ uri: src.URL }} />
   );
 }
 

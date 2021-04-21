@@ -11,7 +11,7 @@ const Drawer = createDrawerNavigator();
 
 function MainStack() {
   return (
-    <Drawer.Navigator initialRouteName="Home" drawerContent={props => <GroupDrawer />}>
+    <Drawer.Navigator initialRouteName="Home" drawerContent={() => <GroupDrawer />}>
       <Drawer.Screen
         name="Home"
         component={MainPage}

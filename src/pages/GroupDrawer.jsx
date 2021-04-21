@@ -1,4 +1,4 @@
-import { DrawerActions, useNavigation } from '@react-navigation/core';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import {
   View, StyleSheet, Text, ScrollView,
