@@ -7,7 +7,6 @@ import { AntDesign } from '@expo/vector-icons';
 
 const LandingCard = ({ title, children, error }) => (
   <KeyboardAvoidingView
-    behavior="position"
     style={styles.container}
   >
     <View style={styles.container}>

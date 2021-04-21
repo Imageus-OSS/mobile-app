@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 function Input({
-  placeholder, secureTextEntry, style, onChangeText, value, error,
+  placeholder, secureTextEntry, style, onChangeText, value, error, autoCorrect,
 }) {
   return (
     <View style={styles.container}>
@@ -16,6 +16,7 @@ function Input({
         style={[styles.textInput, style]}
         placeholder={placeholder}
         onChangeText={onChangeText}
+        autoCorrect={autoCorrect}
       />
       {error
         ? <Text style={styles.errorView}>{error}</Text> : null}
@@ -48,6 +49,7 @@ Input.defaultProps = {
   secureTextEntry: false,
   style: {},
   onChangeText: () => {},
+  autoCorrect: false,
 };
 
 Input.propTypes = {
@@ -57,6 +59,7 @@ Input.propTypes = {
   secureTextEntry: PropTypes.bool,
   style: ViewPropTypes.style,
   error: PropTypes.string,
+  autoCorrect: PropTypes.bool,
 };
 
 export default Input;
