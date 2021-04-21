@@ -62,6 +62,9 @@ function MainPage() {
   }, []);
 
   useEffect(() => {
+    if (groups.length < 1) {
+      return;
+    }
     populatePhotos(groups[index].id);
   }, [index]);
 
