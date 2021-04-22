@@ -10,6 +10,12 @@ import PhotoModal from './PhotoModal';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const forFade = ({ current }) => ({
+  cardStyle: {
+    opacity: current.progress,
+  },
+});
+
 function MainStack() {
   return (
     <Drawer.Navigator initialRouteName="Home" drawerContent={() => <GroupDrawer />}>
@@ -59,6 +65,7 @@ function RootStack() {
       <Stack.Screen
         name="PhotoDetail"
         options={{
+          cardStyleInterpolator: forFade,
           cardStyle: { backgroundColor: 'rgba(0,0,0, 0.7)' },
           cardOverlayEnabled: true,
           headerStyle: { backgroundColor: 'transparent' },

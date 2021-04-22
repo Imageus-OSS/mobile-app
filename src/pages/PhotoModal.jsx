@@ -1,18 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Image, View, StyleSheet, ScrollView, Dimensions, Button,
+  Image, View, StyleSheet, ScrollView, Dimensions,
 } from 'react-native';
 import * as Sharing from 'expo-sharing';
 import ViewPager from '@react-native-community/viewpager';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import * as FileSystem from 'expo-file-system';
+import { Feather } from '@expo/vector-icons';
 import GroupsStateContext from '../contexts/GroupStateContext';
+import ShareButton from '../components/main/ShareButton';
 
 const win = Dimensions.get('window');
 
 function PhotoModal({ route }) {
   const { images } = useContext(GroupsStateContext);
+  const [currentImage, setCurrentImage] = useState(images[route.params.page]);
   const navigation = useNavigation();
 
   function onPan() {
@@ -21,16 +25,24 @@ function PhotoModal({ route }) {
 
   const onShare = async () => {
     try {
-      Sharing.shareAsync(images[0].URL, {
+      Sharing.shareAsync(`${FileSystem.cacheDirectory}${currentImage.id}.jpeg`, {
       });
     } catch (error) {
       alert(error.message);
     }
   };
 
+  function onPageScroll({ nativeEvent }) {
+    setCurrentImage(images[nativeEvent.position]);
+  }
+
   return (
     <View style={{ flex: 1 }}>
-      <ViewPager style={styles.viewPager} initialPage={route.params.page ?? 0}>
+      <ViewPager
+        style={styles.viewPager}
+        initialPage={route.params.page ?? 0}
+        onPageSelected={onPageScroll}
+      >
         {images.map(photo => (
           <View style={styles.page} key={photo.URL}>
             <ScrollView
@@ -52,7 +64,9 @@ function PhotoModal({ route }) {
           </View>
         ))}
       </ViewPager>
-      <Button title="hello" onPress={onShare} />
+      <ShareButton onPress={onShare}>
+        <Feather name="share" size={30} color="black" />
+      </ShareButton>
     </View>
   );
 }

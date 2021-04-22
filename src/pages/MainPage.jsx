@@ -6,6 +6,7 @@ import PhotoGrid from '../components/main/PhotoGrid';
 import API from '../api/API';
 import GroupsStateContext from '../contexts/GroupStateContext';
 import GroupDispatch from '../contexts/GroupDispatchContext';
+import Downloader from '../api/Downloader';
 
 function MainPage() {
   const navigation = useNavigation();
@@ -41,6 +42,8 @@ function MainPage() {
       type: 'setImages',
       payload: res.images,
     });
+
+    await Downloader.downloadImages(res.images);
   }
 
   async function getGroups() {

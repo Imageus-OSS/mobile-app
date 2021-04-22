@@ -13,8 +13,6 @@ function PhotoThumbnail({ src, index }) {
     });
   }
 
-  console.log(src.URL);
-
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image style={styles.photo} source={{ uri: src.URL }} />
@@ -36,7 +34,10 @@ const styles = StyleSheet.create({
 });
 
 PhotoThumbnail.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.shape({
+    URL: PropTypes.string,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default PhotoThumbnail;
