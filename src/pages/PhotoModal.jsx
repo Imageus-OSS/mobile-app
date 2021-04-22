@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Image, View, StyleSheet, ScrollView, Dimensions,
+  View, StyleSheet, ScrollView, Dimensions,
 } from 'react-native';
 import * as Sharing from 'expo-sharing';
 import ViewPager from '@react-native-community/viewpager';
@@ -11,6 +11,7 @@ import * as FileSystem from 'expo-file-system';
 import { Feather } from '@expo/vector-icons';
 import GroupsStateContext from '../contexts/GroupStateContext';
 import ShareButton from '../components/main/ShareButton';
+import PhotoPreview from '../components/main/PhotoPreview';
 
 const win = Dimensions.get('window');
 
@@ -56,7 +57,7 @@ function PhotoModal({ route }) {
             >
               <PanGestureHandler activeOffsetY={20} onActivated={onPan}>
                 <View style={styles.page}>
-                  <Image resizeMode="contain" style={styles.image} source={{ uri: photo.URL }} />
+                  <PhotoPreview image={photo} style={styles.image} />
                 </View>
               </PanGestureHandler>
 
@@ -85,6 +86,9 @@ const styles = StyleSheet.create({
   image: {
     height: win.height,
     width: win.width,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
