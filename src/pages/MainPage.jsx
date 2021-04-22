@@ -17,7 +17,6 @@ function MainPage() {
 
   async function checkUser() {
     try {
-      await AsyncStorage.clear();
       user = JSON.parse(await AsyncStorage.getItem('user'));
       jwt = await AsyncStorage.getItem('jwt');
       await getGroups();

@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import GroupDrawer from './GroupDrawer';
 import MainPage from './MainPage';
 import LoginModal from './LoginModal';
+import PhotoModal from './PhotoModal';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -54,6 +55,16 @@ function RootStack() {
           gestureEnabled: false,
         }}
         component={LoginModal}
+      />
+      <Stack.Screen
+        name="PhotoDetail"
+        options={{
+          cardStyle: { backgroundColor: 'rgba(0,0,0, 0.7)' },
+          cardOverlayEnabled: true,
+          headerStyle: { backgroundColor: 'transparent' },
+          headerShown: false,
+        }}
+        component={PhotoModal}
       />
     </Stack.Navigator>
   );

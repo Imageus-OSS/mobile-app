@@ -1,19 +1,37 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
-function PhotoThumbnail({ src }) {
+function PhotoThumbnail({ src, index }) {
+  const navigation = useNavigation();
+
+  function onPress() {
+    navigation.navigate({
+      name: 'PhotoDetail',
+      params: { page: index },
+    });
+  }
+
+  console.log(src.URL);
+
   return (
-    <Image style={styles.photo} source={{ uri: src.URL }} />
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Image style={styles.photo} source={{ uri: src.URL }} />
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  photo: {
+  container: {
     height: 100,
-    borderRadius: 10,
     width: '30%',
     margin: 5,
+  },
+  photo: {
+    width: '100%',
+    height: 100,
+    borderRadius: 15,
   },
 });
 
