@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, Image, Text,
+  View, StyleSheet, Image, Text, TouchableOpacity,
 } from 'react-native';
 
 function ListItem({
   // eslint-disable-next-line no-unused-vars
-  title, imageURL, members, index,
+  title, imageURL, members, index, onPress, active,
 }) {
   function renderIcon() {
     if (imageURL && imageURL !== '') {
@@ -23,13 +23,15 @@ function ListItem({
   }
 
   return (
-    <View style={styles.container}>
-      {renderIcon()}
-      <View style={styles.textContainer}>
-        <Text numberOfLines={1} style={[styles.title, { marginBottom: 5 }]}>{title}</Text>
-        <Text style={[styles.subtitle, { color: 'gray' }]}>{`${members} members`}</Text>
+    <TouchableOpacity onPress={() => onPress(index)}>
+      <View style={styles.container}>
+        {renderIcon()}
+        <View style={styles.textContainer}>
+          <Text numberOfLines={1} style={[styles.title, { marginBottom: 5 }, active ? { fontFamily: 'DMSans_700Bold' } : undefined]}>{title}</Text>
+          <Text style={[styles.subtitle, { color: 'gray' }]}>{`${members} members`}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -74,6 +76,8 @@ const styles = StyleSheet.create({
 
 ListItem.defaultProps = {
   imageURL: null,
+  onPress: () => {},
+  active: false,
 };
 
 ListItem.propTypes = {
@@ -81,6 +85,8 @@ ListItem.propTypes = {
   imageURL: PropTypes.string,
   members: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
+  onPress: PropTypes.func,
+  active: PropTypes.bool,
 };
 
 export default ListItem;

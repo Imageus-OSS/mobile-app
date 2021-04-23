@@ -5,13 +5,20 @@ import { Ionicons } from '@expo/vector-icons';
 import GroupDrawer from './GroupDrawer';
 import MainPage from './MainPage';
 import LoginModal from './LoginModal';
+import PhotoModal from './PhotoModal';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const forFade = ({ current }) => ({
+  cardStyle: {
+    opacity: current.progress,
+  },
+});
+
 function MainStack() {
   return (
-    <Drawer.Navigator initialRouteName="Home" drawerContent={GroupDrawer}>
+    <Drawer.Navigator initialRouteName="Home" drawerContent={() => <GroupDrawer />}>
       <Drawer.Screen
         name="Home"
         component={MainPage}
@@ -54,6 +61,17 @@ function RootStack() {
           gestureEnabled: false,
         }}
         component={LoginModal}
+      />
+      <Stack.Screen
+        name="PhotoDetail"
+        options={{
+          cardStyleInterpolator: forFade,
+          cardStyle: { backgroundColor: 'rgba(0,0,0, 0.7)' },
+          cardOverlayEnabled: true,
+          headerStyle: { backgroundColor: 'transparent' },
+          headerShown: false,
+        }}
+        component={PhotoModal}
       />
     </Stack.Navigator>
   );
