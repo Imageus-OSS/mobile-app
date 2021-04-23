@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { PropTypes } from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import UserDispatchContext from '../../contexts/UserDispatchContext';
 import Input from '../Input';
 import Button from '../Button';
 import LandingCard from './LandingCard';
@@ -19,6 +20,7 @@ function LoginCard({ switchCard }) {
   });
   const [err, setError] = useState(null);
   const navigation = useNavigation();
+  const dispatch = useContext(UserDispatchContext);
 
   async function login(credentials) {
     try {
@@ -27,6 +29,10 @@ function LoginCard({ switchCard }) {
       // Store shit in local storage
       await AsyncStorage.setItem('jwt', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response));
+      dispatch({
+        type: 'setUser',
+        payload: response,
+      });
       navigation.goBack();
       // onLogin();
     } catch (e) {

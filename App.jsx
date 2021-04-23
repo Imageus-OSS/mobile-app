@@ -11,6 +11,7 @@ import Stack from './src/pages/Navigation';
 import UserContext from './src/contexts/UserContext';
 import GroupContextDispatch, { groupReducer } from './src/contexts/GroupDispatchContext';
 import GroupStateContext from './src/contexts/GroupStateContext';
+import UserDispatchContext, { userReducer } from './src/contexts/UserDispatchContext';
 
 export default function App() {
   const [loadedFonts, setLoadedFonts] = useState(false);
@@ -19,6 +20,7 @@ export default function App() {
     images: [],
     index: -1,
   });
+  const [user, userDispatch] = useReducer(userReducer, null);
 
   async function loadFonts() {
     await Font.loadAsync({
@@ -39,14 +41,16 @@ export default function App() {
 
   if (loadedFonts) {
     return (
-      <UserContext.Provider>
-        <GroupContextDispatch.Provider value={dispatch}>
-          <GroupStateContext.Provider value={groupData}>
-            <NavigationContainer>
-              <Stack />
-            </NavigationContainer>
-          </GroupStateContext.Provider>
-        </GroupContextDispatch.Provider>
+      <UserContext.Provider value={user}>
+        <UserDispatchContext.Provider value={userDispatch}>
+          <GroupContextDispatch.Provider value={dispatch}>
+            <GroupStateContext.Provider value={groupData}>
+              <NavigationContainer>
+                <Stack />
+              </NavigationContainer>
+            </GroupStateContext.Provider>
+          </GroupContextDispatch.Provider>
+        </UserDispatchContext.Provider>
       </UserContext.Provider>
     );
   }

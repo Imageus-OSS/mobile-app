@@ -37,7 +37,7 @@ PhotoGrid.defaultProps = {
 };
 
 PhotoGrid.propTypes = {
-  photos: PropTypes.arrayOf(PropTypes.string),
+  photos: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default PhotoGrid;

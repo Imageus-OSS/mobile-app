@@ -6,33 +6,40 @@ import PhotoGrid from '../components/main/PhotoGrid';
 import API from '../api/API';
 import GroupsStateContext from '../contexts/GroupStateContext';
 import GroupDispatch from '../contexts/GroupDispatchContext';
+import UserDispatchContext from '../contexts/UserDispatchContext';
 import Downloader from '../api/Downloader';
+import UserContext from '../contexts/UserContext';
 
 function MainPage() {
   const navigation = useNavigation();
   const dispatch = useContext(GroupDispatch);
+  const userDispatch = useContext(UserDispatchContext);
   const { groups, index, images } = useContext(GroupsStateContext);
-
-  let jwt;
-  let user;
+  const user = useContext(UserContext);
 
   async function checkUser() {
+    let fetchedUser;
+    let jwt;
     try {
-      user = JSON.parse(await AsyncStorage.getItem('user'));
+      fetchedUser = JSON.parse(await AsyncStorage.getItem('user'));
       jwt = await AsyncStorage.getItem('jwt');
-      await getGroups();
+      await getGroups(fetchedUser);
       await populatePhotos();
     } catch (err) {
       navigation.navigate('Login');
     }
 
-    if (!user || !jwt) {
+    if (!fetchedUser || !jwt) {
+      userDispatch({
+        type: 'setUser',
+        payload: null,
+      });
       navigation.navigate('Login');
     }
   }
 
   async function populatePhotos() {
-    if (groups.length < 1) {
+    if (!groups || groups.length < 1) {
       return;
     }
 
@@ -46,8 +53,8 @@ function MainPage() {
     await Downloader.downloadImages(res.images);
   }
 
-  async function getGroups() {
-    await API.getGroups(user.id).then(fetchedGroups => {
+  async function getGroups(fetchedUser) {
+    await API.getGroups(fetchedUser.id).then(fetchedGroups => {
       dispatch({
         type: 'init',
         payload: {
@@ -61,7 +68,7 @@ function MainPage() {
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (groups.length < 1) {

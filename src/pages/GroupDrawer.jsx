@@ -38,6 +38,7 @@ function GroupDrawer() {
                 index={groupIndex}
                 active={groupIndex === index}
                 onPress={onItemPress}
+                key={group.id}
               />
             ))}
           </View>
