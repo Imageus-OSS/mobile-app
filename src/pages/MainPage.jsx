@@ -64,7 +64,6 @@ function MainPage() {
       let fetchedUser;
       let jwt;
       try {
-        // await AsyncStorage.clear();
         fetchedUser = JSON.parse(await AsyncStorage.getItem('user'));
         jwt = await AsyncStorage.getItem('jwt');
         userDispatch({
@@ -89,6 +88,13 @@ function MainPage() {
       }
       populatePhotos(groups[index].id);
     })();
+  }, []);
+
+  useEffect(() => {
+    if (!groups || groups.length < 1) {
+      return;
+    }
+    populatePhotos(groups[index].id);
   }, [index]);
 
   function onShare() {
