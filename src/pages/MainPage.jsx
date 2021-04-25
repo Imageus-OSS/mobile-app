@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import {
-  Text, StyleSheet, SafeAreaView,
+  Text, StyleSheet, SafeAreaView, Share,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import PhotoGrid from '../components/main/PhotoGrid';
 import API from '../api/API';
 import GroupsStateContext from '../contexts/GroupStateContext';
@@ -49,7 +49,20 @@ function MainPage() {
     });
   }
 
+  async function shareGroup() {
+    try {
+      await Share.share({
+        url: `https://imageus.io/invite/${groups[index].inviteCode}?groupId=${groups[index].id}`,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
   useEffect(() => {
+    if (user === undefined) {
+      navigation.navigate('Login');
+    }
     (async () => {
       if (user == null) {
         return;
@@ -60,6 +73,10 @@ function MainPage() {
   }, [user]);
 
   useEffect(() => {
+    // Setup header stuffs
+    navigation.setOptions({
+      headerRight: () => (<Feather name="share" size={24} style={{ marginRight: 20 }} color="black" onPress={shareGroup} />),
+    });
     (async () => {
       let fetchedUser;
       let jwt;
@@ -104,7 +121,7 @@ function MainPage() {
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
       <Text style={styles.title}>{groups[index] ? groups[index].name : 'Loading...'}</Text>
-      <PhotoGrid photos={images ?? []} />
+      <PhotoGrid photos={images ?? []} onRefresh={() => populatePhotos(groups[index].id)} />
       <ShareButton>
         <Ionicons onPress={onShare} name="camera" size={24} color="black" />
       </ShareButton>

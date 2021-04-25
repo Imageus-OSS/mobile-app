@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import GroupDrawer from './GroupDrawer';
 import MainPage from './MainPage';
 import LoginModal from './LoginModal';

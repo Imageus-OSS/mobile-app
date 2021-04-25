@@ -22,8 +22,6 @@ axios.interceptors.response.use(
       throw new APIError({ status: 499 });
     }
 
-    console.log(error);
-
     throw new APIError(error.response.data);
   },
 );
