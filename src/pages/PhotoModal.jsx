@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 import * as Sharing from 'expo-sharing';
 import ViewPager from '@react-native-community/viewpager';
-import { PanGestureHandler } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
 import { Feather } from '@expo/vector-icons';
@@ -20,8 +19,11 @@ function PhotoModal({ route }) {
   const [currentImage, setCurrentImage] = useState(images[route.params.page]);
   const navigation = useNavigation();
 
-  function onPan() {
-    navigation.navigate('Home');
+  function onScroll({ nativeEvent }) {
+    const { contentOffset, zoomScale } = nativeEvent;
+    if (contentOffset.y < -150 && zoomScale === 1) {
+      navigation.navigate('Home');
+    }
   }
 
   const onShare = async () => {
@@ -52,15 +54,16 @@ function PhotoModal({ route }) {
                 justifyContent: 'center',
                 flex: 1,
               }}
+              onScroll={onScroll}
+              scrollEventThrottle={40}
               maximumZoomScale={3}
               minimumZoomScale={1}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
             >
-              <PanGestureHandler activeOffsetY={20} onActivated={onPan}>
-                <View style={styles.page}>
-                  <PhotoPreview image={photo} style={styles.image} />
-                </View>
-              </PanGestureHandler>
-
+              <View style={styles.page}>
+                <PhotoPreview image={photo} style={styles.image} />
+              </View>
             </ScrollView>
           </View>
         ))}

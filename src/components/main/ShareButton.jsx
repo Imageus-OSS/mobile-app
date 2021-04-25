@@ -16,12 +16,21 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     height: 60,
     width: 60,
-    right: 20,
-    bottom: 20,
+    right: 40,
+    bottom: 40,
     backgroundColor: 'white',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+
+    elevation: 24,
   },
 });
 

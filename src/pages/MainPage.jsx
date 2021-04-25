@@ -1,7 +1,10 @@
 import React, { useEffect, useContext } from 'react';
-import { View } from 'react-native';
+import {
+  Text, StyleSheet, SafeAreaView,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import PhotoGrid from '../components/main/PhotoGrid';
 import API from '../api/API';
 import GroupsStateContext from '../contexts/GroupStateContext';
@@ -9,6 +12,7 @@ import GroupDispatch from '../contexts/GroupDispatchContext';
 import UserDispatchContext from '../contexts/UserDispatchContext';
 import Downloader from '../api/Downloader';
 import UserContext from '../contexts/UserContext';
+import ShareButton from '../components/main/ShareButton';
 
 function MainPage() {
   const navigation = useNavigation();
@@ -16,27 +20,6 @@ function MainPage() {
   const userDispatch = useContext(UserDispatchContext);
   const { groups, index, images } = useContext(GroupsStateContext);
   const user = useContext(UserContext);
-
-  async function checkUser() {
-    let fetchedUser;
-    let jwt;
-    try {
-      fetchedUser = JSON.parse(await AsyncStorage.getItem('user'));
-      jwt = await AsyncStorage.getItem('jwt');
-      await getGroups(fetchedUser);
-      await populatePhotos();
-    } catch (err) {
-      navigation.navigate('Login');
-    }
-
-    if (!fetchedUser || !jwt) {
-      userDispatch({
-        type: 'setUser',
-        payload: null,
-      });
-      navigation.navigate('Login');
-    }
-  }
 
   async function populatePhotos() {
     if (!groups || groups.length < 1) {
@@ -67,21 +50,70 @@ function MainPage() {
   }
 
   useEffect(() => {
-    checkUser();
+    (async () => {
+      if (user == null) {
+        return;
+      }
+      await getGroups(user);
+      await populatePhotos();
+    })();
   }, [user]);
 
   useEffect(() => {
-    if (groups.length < 1) {
-      return;
-    }
-    populatePhotos(groups[index].id);
+    (async () => {
+      let fetchedUser;
+      let jwt;
+      try {
+        // await AsyncStorage.clear();
+        fetchedUser = JSON.parse(await AsyncStorage.getItem('user'));
+        jwt = await AsyncStorage.getItem('jwt');
+        userDispatch({
+          type: 'setUser',
+          payload: fetchedUser,
+        });
+      } catch (err) {
+        navigation.navigate('Login');
+        return;
+      }
+
+      if (!fetchedUser || !jwt) {
+        userDispatch({
+          type: 'setUser',
+          payload: null,
+        });
+        navigation.navigate('Login');
+        return;
+      }
+      if (groups.length < 1) {
+        return;
+      }
+      populatePhotos(groups[index].id);
+    })();
   }, [index]);
 
+  function onShare() {
+    navigation.navigate('Capture');
+  }
+
   return (
-    <View style={{ backgroundColor: 'white', flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+      <Text style={styles.title}>{groups[index] ? groups[index].name : 'Loading...'}</Text>
       <PhotoGrid photos={images ?? []} />
-    </View>
+      <ShareButton>
+        <Ionicons onPress={onShare} name="camera" size={24} color="black" />
+      </ShareButton>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 30,
+    fontFamily: 'Poppins_600SemiBold',
+    marginLeft: 24,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});
 
 export default MainPage;

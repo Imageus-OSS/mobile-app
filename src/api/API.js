@@ -14,9 +14,19 @@ axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // Setup error interceptor
-axios.interceptors.response.use(response => response, error => {
-  throw new APIError(error.response.data);
-});
+axios.interceptors.response.use(
+  response => response,
+  error => {
+    if (axios.isCancel(error)) {
+      // 499 represents a request that was cancelled by the user
+      throw new APIError({ status: 499 });
+    }
+
+    console.log(error);
+
+    throw new APIError(error.response.data);
+  },
+);
 
 /**
  * @typedef UserResponse
@@ -43,6 +53,16 @@ axios.interceptors.response.use(response => response, error => {
  * @property {Number} memberCount
  * @property {Boolean} publicGroup
  * @property {Array<UserResponse>} invitedUsers
+
+/*
+ * @typedef ImageUploadResponse
+ * @property {String} caption
+ * @property {String} fileName
+ * @property {String} creator
+ * @property {String} groupId
+ * @property {String} dateUploaded
+ * @property {String} URL
+ * @property {String} id
  */
 
 const API = {
@@ -86,9 +106,11 @@ const API = {
    * @returns {Promise<UserResponse>}
    */
   async getInfo(token, id) {
-    return axios.get(`/users/${id}`, {
-      headers: { Authorization: token },
-    }).then(response => response.data);
+    return axios
+      .get(`/users/${id}`, {
+        headers: { Authorization: token },
+      })
+      .then(response => response.data);
   },
 
   /**
@@ -100,8 +122,9 @@ const API = {
    * @returns {Promise}
    */
   async requestEmailVerificationLink(email) {
-    return (await axios.post('/users/resendVerificationEmail', { email }))
-      .then(response => response.data);
+    return (await axios.post('/users/resendVerificationEmail', { email })).then(
+      response => response.data,
+    );
   },
 
   /**
@@ -114,7 +137,8 @@ const API = {
    * @returns {Promise}
    */
   async verifyEmail(userId, verificationCode) {
-    return axios.post(`/users/${userId}/verify`, { verificationCode })
+    return axios
+      .post(`/users/${userId}/verify`, { verificationCode })
       .then(response => response.data);
   },
 
@@ -127,7 +151,8 @@ const API = {
    * @returns {Promise}
    */
   async joinGroup(userId, inviteCode) {
-    return axios.post(`/groups/${inviteCode}/join`, { user: userId })
+    return axios
+      .post(`/groups/${inviteCode}/join`, { user: userId })
       .then(response => response.data);
   },
 
@@ -180,6 +205,94 @@ const API = {
   async getGroupImages(groupId) {
     return (await axios.get(`/groups/${groupId}/images`)).data;
   },
+
+  /**
+   * Uploads an image or GIF to the specified group.
+   *
+   * @typedef {Object} ImageUploadOptions
+   * @property {File} image
+   * @property {string} userId
+   * @property {string} groupId
+   * @property {string?} caption
+   *
+   * @param {ImageUploadOptions} payload
+   * @param {ProgressEvent} onUploadProgress
+   * @param {import('axios').CancelToken} cancelToken - Specifies a cancel
+   *  token that can be used to cancel the request
+   *
+   * @throws {APIError} On server error.
+   * @returns {Promise<ImageUploadResponse>}
+   */
+  async uploadGroupImage(
+    payload,
+    onUploadProgress = () => {},
+    cancelToken = null,
+  ) {
+    // prettier-ignore
+    const {
+      image,
+      userId,
+      groupId,
+      caption = '',
+    } = payload;
+    const formData = new FormData();
+
+    formData.append('groupPicture', image);
+    formData.append('userId', userId);
+    formData.append('caption', caption);
+
+    return axios
+      .put(`/groups/${groupId}/uploadImage`, formData, {
+        onUploadProgress,
+        cancelToken,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then(response => response.data);
+  },
+
+  /**
+   * Sends an invitation email to each provided email.
+   *
+   * @param {string} groupId
+   * @param {string[]} emails
+   *
+   * @returns {Promise}
+   * @throws {APIError} On server error.
+   */
+  async sendGroupInviteLink(groupId, emails) {
+    return axios
+      .post(`/groups/${groupId}/invite`, {
+        groupId,
+        emails,
+      })
+      .then(response => response.data);
+  },
+
+  /**
+   * Sends password reset email to entered email.
+   *
+   * @param {String} email
+   * @throws {APIError} On server error.
+   * @returns {Promise<UserResponse>}
+   */
+  async passwordRecovery(email) {
+    const payload = { email };
+    return (await axios.post('/users/passwordRecovery', payload)).data;
+  },
+
+  /**
+   * Reset password given a user id, password, and verification code.
+   *
+   * @param {String} userId
+   * @param {String} verificationCode
+   * @param {String} password
+   * @throws {APIError} On server error.
+   * @returns {Promise<UserResponse>}
+   */
+  async passwordReset(userId, verificationCode, password) {
+    const payload = { userId, verificationCode, password };
+    return (await axios.post('/users/resetPassword', payload)).data;
+  },
 };
 
-export default API;
+export { API as default, BASE_URL };

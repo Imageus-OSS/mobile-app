@@ -5,7 +5,11 @@ import PhotoThumbnail from './PhotoThumbnail';
 
 function PhotoGrid({ photos }) {
   return (
-    <ScrollView>
+    <ScrollView
+      contentInset={{
+        top: 0, left: 0, bottom: 70, right: 0,
+      }}
+    >
       <View style={styles.centerContainer}>
         <View style={styles.container}>
           {
