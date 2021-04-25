@@ -99,11 +99,17 @@ function RootStack() {
       <Stack.Screen
         name="Capture"
         options={{
-          stackPresentation: 'formSheet',
           cardOverlayEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS,
-          cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
-          headerShown: false,
+          headerShown: true,
+          headerStyle,
+          headerTintColor: 'black',
+          headerTitleStyle: {
+            display: 'none',
+          },
+          headerBackTitleStyle: {
+            ...headerTitleStyle,
+            marginLeft: 20,
+          },
           cardStyle: { backgroundColor: 'white' },
         }}
         component={Capture}

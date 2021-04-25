@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import {
+  StyleSheet, TouchableOpacity, Text, ViewPropTypes,
+} from 'react-native';
 
 function Button({
-  variant, type, title, onPress,
+  variant, type, title, onPress, style,
 }) {
   const colorScheme = colorSchemes[type][variant];
 
   return (
-    <TouchableOpacity style={[styles.button, colorScheme]} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, colorScheme, style]} onPress={onPress}>
       <Text style={[styles.buttonText, { color: colorScheme.color }]}>{title}</Text>
     </TouchableOpacity>
   );
@@ -63,6 +65,7 @@ Button.defaultProps = {
   onPress: () => {},
   variant: 'primary',
   type: 'default',
+  style: {},
 };
 
 Button.propTypes = {
@@ -70,6 +73,7 @@ Button.propTypes = {
   variant: PropTypes.oneOf(['primary', 'danger']),
   onPress: PropTypes.func,
   type: PropTypes.oneOf(['default', 'accent']),
+  style: ViewPropTypes.style,
 };
 
 export default Button;

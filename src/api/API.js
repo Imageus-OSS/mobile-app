@@ -10,7 +10,7 @@ const BASE_URL =
     : 'http://localhost:5000';
 
 // Setup Axios defaults
-axios.defaults.baseURL = BASE_URL;
+axios.defaults.baseURL = 'https://api.imageus.io';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // Setup error interceptor
