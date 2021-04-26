@@ -97,8 +97,6 @@ function GroupDrawer() {
               />
             ))}
           </View>
-          <Button type="accent" title="Join Group" />
-          <Button type="accent" title="Create Group" />
         </View>
       </ScrollView>
     </SafeAreaView>
