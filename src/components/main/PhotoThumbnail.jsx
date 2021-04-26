@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
-  StyleSheet, TouchableOpacity, ActivityIndicator, ImageBackground,
+  StyleSheet, TouchableOpacity, ImageBackground,
 } from 'react-native';
+import { Swing } from 'react-native-animated-spinkit';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 
@@ -23,7 +24,7 @@ function PhotoThumbnail({ src, index }) {
         onLoad={() => setIsLoading(false)}
         source={{ uri: src.URL }}
       >
-        <ActivityIndicator animating={isLoading} color="black" />
+        <Swing animating={isLoading} color="#0058b1" />
       </ImageBackground>
     </TouchableOpacity>
   );

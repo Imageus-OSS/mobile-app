@@ -7,6 +7,7 @@ import {
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { Swing } from 'react-native-animated-spinkit';
 import API from '../api/API';
 import GroupsStateContext from '../contexts/GroupStateContext';
 import UserContext from '../contexts/UserContext';
@@ -82,8 +83,8 @@ function Capture() {
       return;
     }
 
-    await upload(val);
     setLoading(false);
+    await upload(val);
   }
 
   return (
@@ -103,7 +104,7 @@ function Capture() {
             <MaterialIcons name="flip-camera-android" size={30} color="white" />
           </TouchableOpacity>
           <View style={styles.cameraOverlay}>
-            <ActivityIndicator animating={loading} size="large" color="black" />
+            <Swing animating={loading} size={40} color="white" />
           </View>
         </View>
       </Camera>
