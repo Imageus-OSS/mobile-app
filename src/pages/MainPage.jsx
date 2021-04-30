@@ -50,10 +50,13 @@ function MainPage() {
   }
 
   async function shareGroup() {
+    // eslint-disable-next-line no-underscore-dangle
+    const group = await API.getGroup(groups[index].id || groups[index]._id);
+    const url = `https://www.imageus.io/invite/${group.inviteCode}?groupId=${group.id}`;
     try {
       await Share.share({
-        url: `https://imageus.io/invite/${groups[index].inviteCode}?groupId=${groups[index].id}`,
-      });
+        url,
+      }).catch(error => alert(error.message));
     } catch (error) {
       alert(error.message);
     }
