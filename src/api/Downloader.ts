@@ -1,7 +1,8 @@
 import * as FileSystem from 'expo-file-system';
+import { Image } from '../types';
 
 const Downloader = {
-  async downloadImages(images) {
+  async downloadImages(images: Image[]) {
     const downloads = images.map(image => FileSystem.createDownloadResumable(image.URL,
       `${FileSystem.cacheDirectory}${image.id}.jpeg`));
 

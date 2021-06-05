@@ -1,8 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 
-function ShareButton({ children, onPress }) {
+type ShareButtonProps = {
+  children: React.ReactNode;
+  onPress(): void;
+};
+
+function ShareButton({ children, onPress }: Partial<ShareButtonProps>): JSX.Element {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       {children}
@@ -33,15 +37,5 @@ const styles = StyleSheet.create({
     elevation: 24,
   },
 });
-
-ShareButton.defaultProps = {
-  children: <> </>,
-  onPress: () => {},
-};
-
-ShareButton.propTypes = {
-  children: PropTypes.node,
-  onPress: PropTypes.func,
-};
 
 export default ShareButton;

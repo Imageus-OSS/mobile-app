@@ -4,13 +4,19 @@ import {
   View, StyleSheet, ScrollView, RefreshControl,
 } from 'react-native';
 import PhotoThumbnail from './PhotoThumbnail';
+import { Image } from '../../types';
 
-function PhotoGrid({ photos, onRefresh }) {
+type PhotoGrid = {
+  photos: Image[];
+  onRefresh(): void;
+};
+
+function PhotoGrid({ photos, onRefresh }: PhotoGrid): JSX.Element {
   const [refreshing, setRefreshing] = React.useState(false);
 
   async function refresh() {
     setRefreshing(true);
-    await onRefresh();
+    onRefresh();
     setRefreshing(false);
   }
 
@@ -27,7 +33,7 @@ function PhotoGrid({ photos, onRefresh }) {
             photos.map((photo, index) => (
               <PhotoThumbnail key={photo.URL} src={photo} index={index} />
             ))
-        }
+          }
         </View>
       </View>
     </ScrollView>

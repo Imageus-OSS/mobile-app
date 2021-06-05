@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, ImageBackground, ViewPropTypes } from 'react-native';
+import { ActivityIndicator, ImageBackground, ViewPropTypes, ViewStyle } from 'react-native';
+import { Image } from '../../types';
 
-function PhotoPreview({ image, style }) {
+type PhotoPreviewProps = {
+  image: Image;
+  style: ViewStyle;
+};
+
+function PhotoPreview({ image, style }: PhotoPreviewProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
 
   return (

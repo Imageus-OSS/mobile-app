@@ -1,8 +1,13 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
 
-function LinkButton({ title, onPress, children }) {
+type LinkButtonProps = {
+  title: string;
+  onPress?: () => void;
+  children?: React.ReactNode; 
+};
+
+function LinkButton({ title, onPress, children }: LinkButtonProps): JSX.Element {
   return (
     <Text style={styles.button} onPress={onPress}>
       {title}
@@ -10,17 +15,6 @@ function LinkButton({ title, onPress, children }) {
     </Text>
   );
 }
-
-LinkButton.defaultProps = {
-  onPress: () => {},
-  children: <></>,
-};
-
-LinkButton.propTypes = {
-  title: PropTypes.string.isRequired,
-  onPress: PropTypes.func,
-  children: PropTypes.node,
-};
 
 const styles = StyleSheet.create({
   button: {

@@ -6,7 +6,14 @@ import { Swing } from 'react-native-animated-spinkit';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 
-function PhotoThumbnail({ src, index }) {
+type PhotoThumbnailProps = {
+  src: {
+    URL: string;
+  };
+  index: number;
+};
+
+function PhotoThumbnail({ src, index }: PhotoThumbnailProps): JSX.Element {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
 

@@ -2,16 +2,24 @@ import React, { useState } from 'react';
 import { View, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import PropTypes from 'prop-types';
 import LandingCard from './LandingCard';
 import Input from '../Input';
 import Button from '../Button';
 import LinkButton from './LinkButton';
 import InputStyles from '../../styles/InputStyles';
 import API from '../../api/API';
+import { CardProps } from './types';
 
-function RegisterCard({ switchCard }) {
-  async function register(credentials) {
+type Credentials = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  password: string;
+};
+
+function RegisterCard({ switchCard }: CardProps): JSX.Element {
+  async function register(credentials: Credentials) {
     try {
       await API.register({
         firstName: credentials.firstName,
@@ -126,13 +134,5 @@ function RegisterCard({ switchCard }) {
     </LandingCard>
   );
 }
-
-RegisterCard.defaultProps = {
-  switchCard: () => { },
-};
-
-RegisterCard.propTypes = {
-  switchCard: PropTypes.func,
-};
 
 export default RegisterCard;

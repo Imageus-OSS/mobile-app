@@ -1,11 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   StyleSheet, View, Text, KeyboardAvoidingView,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-const LandingCard = ({ title, children, error }) => (
+type LandingCardProps = {
+  title: string;
+  children: React.ReactNode;
+  error: string | null;
+};
+
+const LandingCard = ({ title, children, error }: LandingCardProps): JSX.Element => (
   <KeyboardAvoidingView
     style={styles.container}
   >
@@ -25,17 +30,6 @@ const LandingCard = ({ title, children, error }) => (
     </View>
   </KeyboardAvoidingView>
 );
-
-LandingCard.defaultProps = {
-  children: <> </>,
-  error: undefined,
-};
-
-LandingCard.propTypes = {
-  children: PropTypes.node,
-  title: PropTypes.string.isRequired,
-  error: PropTypes.string,
-};
 
 const styles = StyleSheet.create({
   title: {

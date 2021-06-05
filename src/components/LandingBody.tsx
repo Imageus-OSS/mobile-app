@@ -5,7 +5,11 @@ import {
 } from 'react-native';
 import { BlurView } from 'expo-blur';
 
-function LandingBody({ children }) {
+type LandingBodyProps = {
+  children?: React.ReactNode;
+};
+
+function LandingBody({ children }: LandingBodyProps): JSX.Element {
   return (
     <KeyboardAvoidingView
       behavior="position"

@@ -1,12 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
-  View, ViewPropTypes, StyleSheet, TextInput, Text,
+  View, StyleSheet, TextInput, Text, TextStyle
 } from 'react-native';
+import { FormikProps } from 'formik';
+
+type InputProps = {
+  placeholder: string;
+  secureTextEntry: boolean;
+  style: TextStyle;
+  onChangeText: (value: string) => void;
+  value: string;
+  error: string | null;
+  autoCorrect: boolean;
+} & FormikProps<Record<string, string>>;
 
 function Input({
-  placeholder, secureTextEntry, style, onChangeText, value, error, autoCorrect,
-}) {
+  placeholder, secureTextEntry = false, style, onChangeText, value, error, autoCorrect = true,
+}: Partial<InputProps>): JSX.Element {
   return (
     <View style={styles.container}>
       <TextInput
@@ -41,25 +51,5 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
-
-Input.defaultProps = {
-  value: '',
-  error: null,
-  placeholder: '',
-  secureTextEntry: false,
-  style: {},
-  onChangeText: () => {},
-  autoCorrect: false,
-};
-
-Input.propTypes = {
-  value: PropTypes.string,
-  onChangeText: PropTypes.func,
-  placeholder: PropTypes.string,
-  secureTextEntry: PropTypes.bool,
-  style: ViewPropTypes.style,
-  error: PropTypes.string,
-  autoCorrect: PropTypes.bool,
-};
 
 export default Input;

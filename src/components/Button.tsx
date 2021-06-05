@@ -1,12 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
-  StyleSheet, TouchableOpacity, Text, ViewPropTypes,
+  StyleSheet, TouchableOpacity, Text, ViewStyle, TextStyle,
 } from 'react-native';
 
+type ButtonProps = {
+  type?: 'default' | 'accent';
+  variant?: 'primary' | 'danger';
+  title: string;
+  onPress?: () => void;
+  style?: ViewStyle & TextStyle;
+};
+
 function Button({
-  variant, type, title, onPress, style,
-}) {
+  variant = 'primary', type = 'default', title, onPress, style,
+}: ButtonProps): JSX.Element {
   const colorScheme = colorSchemes[type][variant];
 
   return (
@@ -60,20 +67,5 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 });
-
-Button.defaultProps = {
-  onPress: () => {},
-  variant: 'primary',
-  type: 'default',
-  style: {},
-};
-
-Button.propTypes = {
-  title: PropTypes.string.isRequired,
-  variant: PropTypes.oneOf(['primary', 'danger']),
-  onPress: PropTypes.func,
-  type: PropTypes.oneOf(['default', 'accent']),
-  style: ViewPropTypes.style,
-};
 
 export default Button;

@@ -1,28 +1,33 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { PropTypes } from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import UserDispatchContext from '../../contexts/UserDispatchContext';
 import Input from '../Input';
 import Button from '../Button';
 import LandingCard from './LandingCard';
 import LinkButton from './LinkButton';
 import InputStyles from '../../styles/InputStyles';
 import API from '../../api/API';
+import { CardProps } from './types';
+import { useUser } from '../../hooks/user';
 
-function LoginCard({ switchCard }) {
+function LoginCard({ switchCard }: CardProps): JSX.Element {
   const InputSchema = yup.object({
     username: yup.string().required(),
     password: yup.string().required(),
   });
-  const [err, setError] = useState(null);
+  const [err, setError] = useState<string | null>(null);
   const navigation = useNavigation();
-  const dispatch = useContext(UserDispatchContext);
+  const { dispatch } = useUser();
 
-  async function login(credentials) {
+  type Credentials = {
+    username: string;
+    password: string;
+  };
+
+  async function login(credentials: Credentials) {
     try {
       const response = await API.login(credentials.username, credentials.password);
 
@@ -78,13 +83,5 @@ function LoginCard({ switchCard }) {
     </LandingCard>
   );
 }
-
-LoginCard.defaultProps = {
-  switchCard: () => {},
-};
-
-LoginCard.propTypes = {
-  switchCard: PropTypes.func,
-};
 
 export default LoginCard;
