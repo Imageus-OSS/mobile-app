@@ -1,37 +1,37 @@
 import React, {
-  useState, useEffect, useRef, useContext,
+  useState, useEffect, useRef,
 } from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Modal, ActivityIndicator, ImageBackground,
 } from 'react-native';
-import { Camera } from 'expo-camera';
+import { Camera, CameraCapturedPicture } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { Swing } from 'react-native-animated-spinkit';
 import API from '../api/API';
-import GroupsStateContext from '../contexts/GroupStateContext';
-import UserContext from '../contexts/UserContext';
 import Button from '../components/Button';
+import { useUserState } from '../hooks/user';
+import { useGroupsState } from '../hooks/group';
 
-function Capture() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [image, setImage] = useState(null);
+function Capture(): JSX.Element {
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [image, setImage] = useState<CameraCapturedPicture | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const { groups, index } = useContext(GroupsStateContext);
-  const user = useContext(UserContext);
+  const { groups, index } = useGroupsState();
+  const user = useUserState();
   const [imageFlowEnabled, setImageFlowEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
-  const cameraRef = useRef(null);
+  const cameraRef = useRef<Camera>(null);
 
-  async function upload(uploadImage) {
+  async function upload(uploadImage: CameraCapturedPicture) {
     const fileName = uploadImage.uri.split('/').pop();
     try {
       await API.uploadGroupImage({
         userId: user.id,
         groupId: groups[index].id,
         image: {
-          name: 'test', type: 'image/jpeg', uri: uploadImage.uri, fileName,
+          name: 'test', type: 'image/jpeg', uri: uploadImage.uri, fileName: fileName ?? '',
         },
       });
     } catch (error) {
@@ -53,7 +53,7 @@ function Capture() {
   };
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
 
@@ -74,7 +74,8 @@ function Capture() {
   async function takePicture() {
     // await cameraRef.current.onCameraReady();
     setLoading(true);
-    const val = await cameraRef.current.takePictureAsync();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const val = await cameraRef.current!.takePictureAsync();
     setImage(val);
 
     if (!imageFlowEnabled) {
@@ -92,7 +93,6 @@ function Capture() {
       <Camera style={styles.camera} type={type} ref={cameraRef}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={styles.button}
             onPress={() => {
               setType(
                 type === Camera.Constants.Type.back
@@ -124,7 +124,7 @@ function Capture() {
           setModalVisible(!modalVisible);
         }}
       >
-        <ImageBackground source={{ uri: image ? image.uri : null }} style={styles.container}>
+        <ImageBackground source={{ uri: image ? image.uri : undefined }} style={styles.container}>
           <ActivityIndicator size="large" animating={loading} />
         </ImageBackground>
         <View style={styles.modalFooter}>
@@ -134,7 +134,7 @@ function Capture() {
             title="Upload"
             onPress={async () => {
               setLoading(true);
-              await upload(image);
+              await upload(image!);
               setLoading(false);
               setModalVisible(false);
             }}

@@ -35,7 +35,7 @@ function LoginCard({ switchCard }: CardProps): JSX.Element {
       await AsyncStorage.setItem('jwt', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response));
       dispatch({
-        type: 'setUser',
+        type: 'updateUser',
         payload: response,
       });
       navigation.goBack();

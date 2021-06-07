@@ -1,7 +1,7 @@
 // These options are ONLY disabled to keep prettier from fighting eslint
 /* eslint-disable operator-linebreak */
 /* eslint-disable implicit-arrow-linebreak */
-import axios, { CancelToken } from 'axios';
+import axios from 'axios';
 import { Group } from '../types';
 import APIError from './APIError';
 import { UserResponse, GroupOptions, GroupResponse, ImageObject, ImageUploadOptions, ImageUploadResponse, AccountParams, RegistrationOptions } from './types';
@@ -23,7 +23,7 @@ axios.interceptors.response.use(
       // 499 represents a request that was cancelled by the user
       throw new APIError({ status: 499 });
     }
-
+    
     throw new APIError(error.response.data);
   },
 );
@@ -156,8 +156,6 @@ const API = {
    */
   async uploadGroupImage(
     payload: ImageUploadOptions,
-    onUploadProgress: (event: ProgressEvent<EventTarget>) => void,
-    cancelToken: CancelToken,
   ): Promise<ImageUploadResponse> {
     // prettier-ignore
     const {
@@ -173,10 +171,7 @@ const API = {
     formData.append('caption', caption);
 
     const response = await axios
-      .put(`/groups/${groupId}/uploadImage`, formData, {
-        onUploadProgress,
-        cancelToken,
-      });
+      .put(`/groups/${groupId}/uploadImage`, formData);
     return response.data;
   },
 

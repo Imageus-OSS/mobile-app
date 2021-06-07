@@ -6,10 +6,10 @@ import LandingBody from '../components/LandingBody';
 import LoginCard from '../components/landing/LoginCard';
 import RegisterCard from '../components/landing/RegisterCard';
 
-function LoginModal() {
+function LoginModal(): JSX.Element {
   const [card, setCard] = useState('login');
 
-  const cards = {
+  const cards: Record<string, JSX.Element> = {
     login: <LoginCard switchCard={setCard} />,
     register: <RegisterCard switchCard={setCard} />,
   };

@@ -1,25 +1,27 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, ScrollView, Dimensions,
+  View, StyleSheet, ScrollView, Dimensions, NativeSyntheticEvent, NativeScrollEvent,
 } from 'react-native';
 import * as Sharing from 'expo-sharing';
-import ViewPager from '@react-native-community/viewpager';
+import ViewPager, { ViewPagerOnPageSelectedEvent } from '@react-native-community/viewpager';
 import { useNavigation } from '@react-navigation/native';
 import * as FileSystem from 'expo-file-system';
 import { Feather } from '@expo/vector-icons';
-import GroupsStateContext from '../contexts/GroupStateContext';
 import ShareButton from '../components/main/ShareButton';
 import PhotoPreview from '../components/main/PhotoPreview';
+import { useGroupsState } from '../hooks/group';
 
 const win = Dimensions.get('window');
 
-function PhotoModal({ route }) {
-  const { images } = useContext(GroupsStateContext);
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function PhotoModal({ route }: { route: any}): JSX.Element {
+  const { images } = useGroupsState();
   const [currentImage, setCurrentImage] = useState(images[route.params.page]);
   const navigation = useNavigation();
 
-  function onScroll({ nativeEvent }) {
+  function onScroll({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) {
     const { contentOffset, zoomScale } = nativeEvent;
     if (contentOffset.y < -150 && zoomScale === 1) {
       navigation.navigate('Home');
@@ -28,14 +30,14 @@ function PhotoModal({ route }) {
 
   const onShare = async () => {
     try {
-      Sharing.shareAsync(`${FileSystem.cacheDirectory}${currentImage.id}.jpeg`, {
+      await Sharing.shareAsync(`${FileSystem.cacheDirectory}${currentImage.id}.jpeg`, {
       });
     } catch (error) {
       alert(error.message);
     }
   };
 
-  function onPageScroll({ nativeEvent }) {
+  function onPageScroll({ nativeEvent }: ViewPagerOnPageSelectedEvent) {
     setCurrentImage(images[nativeEvent.position]);
   }
 

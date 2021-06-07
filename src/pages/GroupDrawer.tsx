@@ -1,5 +1,5 @@
 import { DrawerActions, useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View, StyleSheet, Text, ScrollView, TouchableOpacity,
 } from 'react-native';
@@ -7,23 +7,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Avatar from '../components/Avatar';
-import Button from '../components/Button';
 import ListItem from '../components/main/ListItem';
 import API from '../api/API';
-import GroupDispatch from '../contexts/GroupDispatchContext';
-import GroupsStateContext from '../contexts/GroupStateContext';
-import UserDispatchContext from '../contexts/UserDispatchContext';
-import UserContext from '../contexts/UserContext';
+import { useGroups, useGroupsState } from '../hooks/group';
+import { useUser, useUserState } from '../hooks/user';
+import { User } from '../types';
 
-function GroupDrawer() {
-  const { groups, index } = useContext(GroupsStateContext);
-  const dispatch = useContext(GroupDispatch);
+function GroupDrawer(): JSX.Element {
+  const { groups, index } = useGroupsState();
+  const { dispatch } = useGroups();
   const navigation = useNavigation();
-  const user = useContext(UserContext);
-  const userDispatch = useContext(UserDispatchContext);
-  const [imgURL, setImgURL] = useState(null);
+  const user = useUserState();
+  const { dispatch: userDispatch } = useUser();
+  const [imgURL, setImgURL] = useState<string | null>(null);
 
-  function onItemPress(pressedIndex) {
+  function onItemPress(pressedIndex: number) {
     dispatch({
       type: 'setIndex',
       payload: pressedIndex,
@@ -36,8 +34,8 @@ function GroupDrawer() {
   async function logout() {
     await AsyncStorage.clear();
     userDispatch({
-      type: 'setUser',
-      payload: undefined,
+      type: 'updateUser',
+      payload: {} as User,
     });
   }
 
@@ -45,9 +43,11 @@ function GroupDrawer() {
     if (!user) {
       return;
     }
-    (async () => {
-      const info = await API.getInfo(user.token, user.id);
-      setImgURL(info.imgURL);
+    void (async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const info = await API.getInfo(user.token!, user.id);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      setImgURL(info.imgURL!);
     })();
   }, [user]);
 
@@ -69,7 +69,7 @@ function GroupDrawer() {
               marginBottom: 20,
             }}
             >
-              <Avatar size={50} firstName={user ? user.firstName : ''} lastName={user ? user.lastName : ''} uri={imgURL} />
+              <Avatar size={50} firstName={user?.firstName ? user.firstName : ''} lastName={user?.lastName ? user.lastName : ''} uri={imgURL || ''} />
               <View style={{
                 marginLeft: 20,
               }}
@@ -87,7 +87,7 @@ function GroupDrawer() {
           <View style={styles.groupList}>
             {groups.map((group, groupIndex) => (
               <ListItem
-                imageURL={group.thumbnail ? group.thumbnail.URL : null}
+                imageURL={group.thumbnail ? group.thumbnail.URL : undefined}
                 title={group.name}
                 members={group.memberCount}
                 index={groupIndex}

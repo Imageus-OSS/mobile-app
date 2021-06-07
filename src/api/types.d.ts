@@ -28,6 +28,7 @@ export type ImageObject = {
 export type UserResponse = BaseUser & {
   id: string;
   token?: string;
+  imgURL?: string;
 };
 
 export type GroupResponse = {
@@ -49,7 +50,7 @@ export type GroupOptions = {
   emails: string[];
 };
 export type ImageUploadOptions = {
-  image: File;
+  image: FormDataValue;
   userId: string;
   groupId: string;
   caption?: string;

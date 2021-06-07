@@ -1,14 +1,15 @@
 import React from 'react';
-import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from '@react-navigation/stack';
+import { CardStyleInterpolators, TransitionPresets } from '@react-navigation/stack';
+import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Ionicons, Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import GroupDrawer from './GroupDrawer';
 import MainPage from './MainPage';
 import LoginModal from './LoginModal';
 import PhotoModal from './PhotoModal';
 import Capture from './Capture';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const headerTitleStyle = {
@@ -40,19 +41,21 @@ function MainStack() {
         options={({ navigation }) => ({
           headerShown: true,
           title: 'ImageUs',
-          headerLeft: () => (<Ionicons name="ios-reorder-three-sharp" style={{ marginLeft: 20 }} size={36} onPress={() => navigation.toggleDrawer()} />),
+          headerLeft: function MenuButton() {
+            return (
+              <Ionicons name="ios-reorder-three-sharp" style={{ marginLeft: 20 }} size={36} onPress={() => navigation.toggleDrawer()} />
+            );
+          }
         })}
       />
     </Drawer.Navigator>
   );
 }
 
-function RootStack() {
+function RootStack(): JSX.Element {
   return (
     <Stack.Navigator
-      mode="modal"
       screenOptions={{
-        cardOverlayEnabled: true,
         headerTitleStyle: {
           fontFamily: 'Poppins_600SemiBold',
         },
@@ -69,9 +72,6 @@ function RootStack() {
         name="Login"
         options={{
           stackPresentation: 'formSheet',
-          cardOverlayEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS,
-          cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
           headerShown: false,
           gestureEnabled: false,
         }}
@@ -80,37 +80,20 @@ function RootStack() {
       <Stack.Screen
         name="PhotoDetail"
         options={{
-          cardStyle: { backgroundColor: 'white' },
-          cardOverlayEnabled: true,
-          headerTitleStyle: {
-            ...headerStyle,
-            display: 'none',
-          },
-          headerStyle,
+          contentStyle: { backgroundColor: 'white '},
           headerTintColor: 'black',
           headerBackTitle: 'ImageUs',
-          headerBackTitleStyle: {
-            ...headerTitleStyle,
-            marginLeft: 20,
-          },
         }}
         component={PhotoModal}
       />
       <Stack.Screen
         name="Capture"
         options={{
-          cardOverlayEnabled: true,
           headerShown: true,
-          headerStyle,
           headerTintColor: 'black',
-          headerTitleStyle: {
-            display: 'none',
-          },
           headerBackTitleStyle: {
             ...headerTitleStyle,
-            marginLeft: 20,
           },
-          cardStyle: { backgroundColor: 'white' },
         }}
         component={Capture}
       />

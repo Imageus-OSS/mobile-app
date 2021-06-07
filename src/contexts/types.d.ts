@@ -33,7 +33,7 @@ export type UserContextType = {
 };
 
 export type UserAction = {
-  type: 'setUser';
+  type: 'updateUser';
   payload: User;
 };
 

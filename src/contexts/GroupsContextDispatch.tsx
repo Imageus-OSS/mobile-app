@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 import groupReducer from '../reducers/group';
 import { GroupContextType } from './types';
 
