@@ -10,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Stack from './src/pages/Navigation';
 import { UserProvider } from './src/contexts/UserContextDispatch';
 import { GroupsProvider } from './src/contexts/GroupsContextDispatch';
+import { View } from 'react-native';
 
 export default function App(): JSX.Element {
   const [loadedFonts, setLoadedFonts] = useState(false);
@@ -42,5 +43,5 @@ export default function App(): JSX.Element {
       </NavigationContainer>
     );
   }
-  return null;
+  return <View />;
 }
