@@ -1,5 +1,4 @@
 import React from 'react';
-import { CardStyleInterpolators, TransitionPresets } from '@react-navigation/stack';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';

@@ -134,6 +134,7 @@ function Capture(): JSX.Element {
             title="Upload"
             onPress={async () => {
               setLoading(true);
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               await upload(image!);
               setLoading(false);
               setModalVisible(false);

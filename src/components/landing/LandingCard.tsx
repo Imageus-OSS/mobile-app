@@ -15,14 +15,14 @@ const LandingCard = ({ title, children, error }: LandingCardProps): JSX.Element 
     style={styles.container}
   >
     <View style={styles.container}>
-      {/* {
+      {
         error && (
           <View style={styles.errorView}>
             <Text style={styles.errorText}>{error}</Text>
             <AntDesign name="close" size={24} color="white" />
           </View>
         )
-      } */}
+      }
       <Text style={styles.title}>{title}</Text>
       <View>
         {children}
