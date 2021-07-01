@@ -38,7 +38,7 @@
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.3.0",
-    "react-native-web": "~0.16.3",
+    "react-native-web": "~0.17.1",
     "socket.io-client": "^4.1.2",
     "unimodules-permissions-interface": "^6.1.0",
     "yup": "^0.32.9"
